@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#cp src/Makevars.in src/Makevars
+
+UNAME=`uname`
+
+echo @@@@@ The operating system is $UNAME.
+
+version_no=`cat DESCRIPTION |grep Version|cut -f2 -d' '`
+
+echo PKG_CFLAGS+= -DSUBREAD_VERSION=\"\\\"Rsubread $version_no\\\"\" > src/Makevars
+
+if test  $UNAME = "Linux" 
+then
+	# This is a Linux machine! 
+	cat src/Makevars.Linux >> src/Makevars
+elif test $UNAME = "FreeBSD"
+then
+	cat src/Makevars.FreeBSD >> src/Makevars
+elif test $UNAME = "SunOS"
+then
+	cat src/Makevars.SunOS >> src/Makevars
+else
+	cat src/Makevars.MacOS >> src/Makevars
+fi
+

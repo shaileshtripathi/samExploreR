@@ -1,0 +1,413 @@
+\documentclass[11pt]{article}
+\usepackage{makeidx}  % allows for indexgeneration
+\usepackage[dvips]{graphicx}
+\usepackage{dsfont}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+%\usepackage{bbb}
+\usepackage{Sweave}
+%################
+<<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
+BiocStyle::latex()
+@
+
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{psfrag}
+
+\usepackage[english]{babel}
+\usepackage{rotating}
+\usepackage{rotate}
+\usepackage{lscape}
+%\usepackage{stmaryrd}
+\usepackage{eufrak}
+\usepackage{bbm}
+\usepackage{marvosym}
+\usepackage{txfonts}
+\usepackage{pgf}
+\usepackage{tikz}
+\definecolor{verboxcolor}{RGB}{235,235,235}
+\usepackage{tikz}
+\usepackage{verbatim}
+
+
+\begin{document}
+<<preliminaries,echo=FALSE,results=hide>>=
+library(samExploreR)
+
+@
+\title{Manual for the package samExploreR }
+
+\author{Alexey Stupnikov\textsuperscript{1}, Shailesh Tripathi\textsuperscript{1,2}, Ricardo de Matos Simoes\textsuperscript{1}, Darragh McArt\textsuperscript{3}, \\Manuel Salto-Tellez\textsuperscript{3}, Galina Glazko\textsuperscript{4} and Frank Emmert-Streib\textsuperscript{1,5,6,*}\\
+\textsuperscript{1}Computational Biology and Machine Learning Laboratory,\\ Center for Cancer Research and Cell Biology,\\ School of Medicine, Dentistry and Biomedical Sciences,\\ Faculty of Medicine, Health and Life Sciences,\\ Queen'€™s University Belfast, UK\\
+\textsuperscript{2}School of Mathematics and Physics,\\ Queen's University Belfast, BT7 1NN Belfast, UK\\
+\textsuperscript{3}Northern Ireland Molecular Pathology Laboratory, \\Centre for Cancer Research and Cell Biology, \\Queen's University Belfast, BT9 7AE Belfast, UK\\
+\textsuperscript{4}Division of Biomedical Informatics, University of Arkansas for Medical Sciences, \\Little Rock,
+AR 72205, USA\\
+\textsuperscript{5}Computational Medicine and Statistical Learning Laboratory,\\ Department of Signal Processing,
+Tampere University of Technology, Finland\\
+\textsuperscript{6}Institute of Biosciences and Medical Technology,\\ 33520 Tampere, Finland\\
+\vspace{3mm}
+\textsuperscript{*}Corresponding author
+}
+
+\date{}
+\maketitle
+\newpage
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+
+\section{Citation}
+
+If you use the samExploreR package, please cite \cite{alexey} and \cite{liao2013featurecounts}.
+
+
+
+
+\section{Dependencies}
+
+
+
+SamExploreR depends on some R package available in CRAN that need to be installed before you can use the package. The symbol '>' indicates the R prompt. 
+
+1)	ggplot2: package available at
+http://cran.r-project.org/web/packages/ggplot2/index.html
+
+Installation command: call the following command from an R prompt.
+\begin{verbatim}
+> install.packages("ggplot2")
+\end{verbatim}
+
+2)	pBrackets: package available at
+http://cran.r-project.org/web/packages/pBrackets/index.html
+
+Installation command: call the following command from an R prompt.
+\begin{verbatim}
+> install.packages("pBrackets")
+\end{verbatim}
+
+3)	colorspace: package available at
+http://cran.r-project.org/web/packages/colorspace/index.html
+
+Installation command: call the following command from an R prompt.
+\begin{verbatim}
+> install.packages("colorspace")
+\end{verbatim}
+
+
+
+\subsection{For developers only}
+
+If a user wants to make changes to the package and rebuild it again, then the following packages need to be installed additionally. These are necessary for the compilation and the building the package. 
+
+1)	BiocCheck:
+\begin{verbatim}
+> source("http://bioconductor.org/biocLite.R")
+> biocLite("BiocCheck")
+\end{verbatim}
+
+2)  BiocGenerics:
+\begin{verbatim}
+> source("http://bioconductor.org/biocLite.R")
+> biocLite("BiocGenerics")
+\end{verbatim}
+
+ 3) 	RUnit:
+\begin{verbatim}
+> install.packages("RUnit")
+\end{verbatim}
+
+4) Matrix:
+\begin{verbatim}
+> install.packages("Matrix")
+\end{verbatim}
+
+
+
+
+\section{Installation}
+
+The samExploreR package is available from Bioconductor.
+To install the package, run the following commands:
+
+\begin{verbatim}
+Remark: To be added after uploaded to Bioconductor.
+\end{verbatim}
+
+If you install it from a local download, run the following command in a terminal from the same directory where you downloaded the package:
+\begin{verbatim}
+R CMD INSTALL samExploreR_1.0.0.tar.gz
+\end{verbatim}
+
+
+
+
+
+
+
+
+\section{Quick start}
+
+
+In the following, we demonstrate briefly the usage of the samExploreR package and the analysis procedures it provides. These examples require a BAM or SAM file from some RNA-seq experiment containing aligned reads. For the following examples, we provide the all necessary files, namely:
+\begin{itemize}
+\item aligned reads: Test.sam
+\item annotation file: Annot.gtf
+\end{itemize}
+
+
+
+
+
+In order to simulate $5$ repeats (N\_boot) for a virtual sequencing experiment with sequencing depth $f = 0.7$ execute:\\
+
+\begin{verbatim}
+
+ # Loading library
+>  library(samExploreR)
+
+ # Performing subsampling
+
+> inpf <- system.file("testdata", package="samExploreR")
+> inpf <- paste(inpf,"/","Test.sam",sep="")
+  
+> x <- samExplore(files=inpf, subsample_d = 0.85, N_boot=5)
+
+\end{verbatim}
+This results in a 5-dimensional list, whereas each component corresponds to a subsampled count vectors.
+
+
+
+
+
+
+
+
+\section{The samExplore function}
+
+The function $samExplore$, which is our modification of the featureCounts function of \cite{liao2013featurecounts}, performs a summerization of reads to genomic features of annotation. 
+
+The procedure of read subsampling works as follows:
+One of the input parameters is $f$, which is a fraction of reads that will be subsampled from the original SAM or BAM file,
+\begin{eqnarray}
+f = \frac{\#{\mbox{subssampled reads}}}{\#{\mbox{total reads}}}.
+\end{eqnarray}
+
+During the counts computing process every read, or a pair of reads for paired-end sequencing, is taken into account with probability $f$. This results in a reduction of the amount of reads and, therefore, the overall expression of the genes. 
+
+Further input arguments of the function are:
+\begin{itemize}
+\item files: names of SAM/BAM files to process
+\item annot\_ext: annotation file
+\item isGTFAnnotationFile:
+\item GTF.featureType:
+\item N\_boot: number of repeated experiments
+\end{itemize}
+As an output the function produces a vector of objects - results of featureCounts running.
+ 
+
+
+
+\begin{verbatim}
+ # Loading library
+>  library(samExploreR)
+
+ # Performing subsampling
+
+> inpf <- system.file("testdata", package="samExploreR")
+> inpf <- paste(inpf,"/","Test.sam",sep="")
+
+ # Performing robustness analysis for f = 0.7, number of replicates 5, 
+ #annotation entries 'gene', non-paired reads
+ > x <- samExplore(files=inpf,annot.inbuilt="mm9",GTF.featureType="exon",
+ GTF.attrType="gene_id", subsample_d = 0.8, N_boot=5)
+
+ # Performing robustness analysis for f = 0.1, number of replicates 10, 
+ #annotation entries 'exon', paired reads
+ > x <- samExplore(files=inpf,annot.inbuilt="mm9",GTF.featureType="gene",
+ GTF.attrType="gene_id", subsample_d = 0.8, N_boot=5)
+
+
+
+
+\end{verbatim}
+
+
+
+
+
+
+
+
+\section{exploreRob}
+
+A cornerstone of any scientific study is the question regarding the reproducibility and robustness of obtained results. The function $exploreRob$ allows the exploration of the robustness of results. It runs a standard one-way ANOVA test for groups of replicates, corresponding to different $f$ values, for one fixed annotation. In this way, one can measure if the result of the analysis changes significantly with a change in the parameter sequencing depth, $f$.
+
+The function $exploreRob$ takes as input argument a data frame with the format shown in Tab. \ref{tab:expRob}.
+\begin{table}[h!]
+\begin{tabular}{ll*{6}{c}r}
+&Label & Variable& Value\\
+.&.&.&.\\
+1 &  New, Gene   &  0.40 &   55\\
+ 2 & New, Exon  &   0.99  & 176\\
+ 3 & Old, Gene  &   0.85 &   47\\
+ 4 &Old, Gene   &  0.70   & 32\\
+ 5 &New, Exon   &  0.85 &  128\\
+ 6 &New, Gene  &   0.20   & 10\\
+ 7 &New, Exon   &  0.25 &   28\\
+ 8& Old, Gene   &  0.95   & 36\\
+ 9 &New, Exon  &   0.99  & 173\\
+ 10 &Old, Gene   &  0.90  &  42\\
+ 11& Old, Gene  &   0.10   &  1\\
+ 12 &Old, Gene   &  0.99  &  46\\
+ 13 &New, Exon &    0.20  &  14\\
+ 14 &New, Exon &    0.10  &   2\\
+ 15 &Old, Gene   &  0.25  &   8\\
+ 16 &New, Gene &    0.95  & 137\\
+ 17 &New, Exon  &   0.95 &  180\\
+ 18& New, Gene  &   0.25  &  19\\
+ 19 &New, Exon   &  0.50  & 101\\
+ 20& New, Gene  &   0.20  &   8\\
+.&.&.&.\\
+.&.&.&.\\
+
+\end{tabular}
+\caption{Input argument for the function $exploreRob$. \label{tab:expRob}}
+\end{table}
+In this table, the first column provides the labels for the annotation (lbl) used for the analysis, the second column gives the $f$ value and the third column provides the value of the metric to be explored, e.g., the number of differentially expressed genes. 
+
+The function $exploreRob$ splits this data frame up by considering only entries for one specific type of annotation. Then an ANOVA test is run for the groups of replicates that correspond to a given list of $f$ values, see Fig. \ref{fig1}.
+
+For instance, to explore the robustness of the annotation type AnnotB cross the $f$ values $0.8$, $0.9$, $0.95$ for the data frame $df$ run:
+
+
+%\begin{verbatim}
+
+<<>>=
+#Loading library
+library(samExploreR)
+data("df_sole")
+ #Performing robustness analysis
+exploreRob(df_sole, lbl = 'New, Gene', f_vect = c(0.85, 0.9, 0.95))
+@
+
+
+
+
+\section{exploreRep}
+
+Similar to $exploreRob$, the function $exploreRep$ allows the exploration of the reproducibility of results. This function runs a one-way ANOVA test for groups of replicates, corresponding to one $f$ value, across various annotation types. Thus, the influence of the annotation or the summarisation method can be explored. 
+
+$exploreRep$ takes as input a data frame of form shown in Tab. \ref{tab:expRep}.
+\begin{table}[h!]
+\begin{tabular}{ll*{6}{c}r}
+&Label & Variable& Value\\
+.&.&.&.\\
+.&.&.&.\\
+1 & New, Gene &    0.05 &    3\\
+2 & New, Exon &    0.05 &    1\\
+3 & Old, Gene &    0.05  &   1\\
+4 & New, Gene &    0.05 &    1\\
+5 & New, Exon &    0.05  &   2\\
+6 & Old, Gene &    0.05  &   0\\
+7 & New, Gene &    0.05&     2\\
+8 & New, Exon  &   0.05 &    3\\
+9 & Old, Gene  &   0.05 &    0\\
+10& New, Gene &    0.05 &    2\\
+.&.&.&.\\
+.&.&.&.\\
+\end{tabular}
+\caption{Input argument for the function $exploreRep$. \label{tab:expRep}}
+\end{table}
+Here the first column provides the labels for the annotation used for the analysis, the second column gives the $f$ value and the third column provides the value of the metric to be explored, e.g., the number of differentially expressed genes. 
+
+$exploreRep$ splits this data frame up to consider only results for one $f$ value. ANOVA test is run for groups of replicates with corresponding to given list of annotation labels , Fig \ref{fig1}.
+
+For instance, to explore the reproducibility for a $f$ value of $0.7$ cross the annotation types AnnotA, AnnotB, AnnotC  for data frame $df$ run:
+<<>>=
+#Loading library
+library(samExploreR)
+data("df_sole")
+ #Performing robustness analysis
+ t = exploreRep(df_sole, lbl_vect = c('New, Gene', 'Old, Gene', 'New, Exon'), f = 0.9)
+
+@
+
+
+
+
+
+
+
+
+\section{plotSamExplorer}
+
+This function generates boxplots of the metric under investigation, in our case for the number of differentially expressed genes, for different values of $f$.
+
+The input argument of this function should be a {\it{data.frame}} object containing three columns with the names - {\it{Label}}, {\it{Variable}}, {\it{Value}}.
+
+The data should look like in the following example:
+\small{
+<<plotunif,fig=FALSE>>=
+
+require(samExploreR)
+########## Loading the example data
+data("df_sole")
+data("df_intersect")
+head(df_sole)
+#head(df_intersect)
+
+@
+}
+
+\subsection{Plotting data using the function plotSamExplorer}
+\vspace{-5mm}
+%%%%%%%%
+\begin{figure}[!ht]
+\begin{center}
+\small{
+<<fig1,fig=TRUE,onefig=TRUE,echo=TRUE,scale=0.07>>=
+### Generation of the plot:
+require(samExploreR)
+data("df_sole")
+plotsamExplorer(df_sole,p.depth=.9,font.size=4, anova=TRUE)
+@
+\caption{\label{fig1} Boxplot of the number of differentially expressed genes for different sequence-depths $f$.  }
+}
+\end{center}
+\end{figure}
+
+\newpage
+
+\begin{figure}[!ht]
+\begin{center}
+\small{
+<<fig2,fig=TRUE,onefig=TRUE,echo=FALSE,scale=0.07>>=
+###Generation of the plot:
+require(samExploreR)
+data("df_intersect")
+plotsamExplorer(df_intersect,font.size=3, anova=FALSE)
+@
+\caption{\label{fig2} Boxplot of the number of differentially expressed genes for different sequence-depths $f$.  }
+}
+\end{center}
+\end{figure}
+
+
+
+
+<<>>=
+sessionInfo()
+@
+%\bibliographystyle{plain}
+
+\bibliography{Bibliography}     % Bibliography file (usually '*.bib' )
+
+
+
+\end{document}
+
+
+
