@@ -3,10 +3,10 @@ Type: Package
 Title: samExploreR package: high-performance read summarisation to
         count vectors with avaliability of sequencing depth reduction
         simulation
-Version: 1.0.0
+Version: 1.0.1
 Depends: ggplot2,pBrackets,colorspace
 Author: Alexey Stupnikov, Shailesh Tripathi and Frank Emmert-Streib with contributions from Wei Shi and Yang Liao
-Maintainer: Alexey Stupnikov,Shailesh Tripathi <email@mail>
+Maintainer: Alexey Stupnikov,Shailesh Tripathi <shailesh.tripathy@gmail.com>
 Description: This R package is designed for subsampling procedure to
 		simulate sequencing experiments with reduced sequencing depth.
 		This package can be used to anlayze data generated from all
@@ -24,5 +24,5 @@ biocViews: Sequencing, SequenceMatching, RNASeq, ChIPSeq, DNASeq,
         WholeGenome, GeneTarget, Alignment, GeneExpression,
         GeneticVariability, GeneRegulation, Preprocessing,
         GenomeAnnotation, Software
-Packaged: 2015-07-28 13:59:18 UTC; stripathi
+Packaged: 2016-07-19 13:59:18 UTC; stripathi
 NeedsCompilation: yes
