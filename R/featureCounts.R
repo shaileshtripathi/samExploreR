@@ -80,7 +80,7 @@ else{
 
 fout <- file.path(".",paste(".Rsubread_featureCounts_pid",Sys.getpid(),sep=""))
 files_C <- paste(files,collapse=";")
-if(nchar(files_C) == 0) stop("No read files provided!")
+#if(nchar(files_C) == 0) stop("No read files provided!")
  chrAliases_C <- chrAliases
  if(is.null(chrAliases))
  chrAliases_C <- " "

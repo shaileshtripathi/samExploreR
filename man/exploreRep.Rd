@@ -48,9 +48,10 @@ An output of aov function
 }
 \author{Alexey Stupnikov and Shailesh Tripathi}
 %\note{}
-\examples{\dontrun{
+\examples{
+%\dontrun{
 library(samExplore)
-
+data("df_sole")
 #run ANOVA for annotation types labeled 'New, Gene' and 'New, Exon' and f value 0.9
 exploreRep(df_sole, lbl_vect = c('New, Gene', 'Old, Gene'), f = 0.9)
 
@@ -59,7 +60,8 @@ exploreRep(df_sole, lbl_vect = c('New, Gene', 'Old, Gene'), f = 0.9)
 exploreRep(df_sole, lbl_vect = c('New', 'Old'), f = 0.5)
 
 
-}}
+%}
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 %\keyword{}

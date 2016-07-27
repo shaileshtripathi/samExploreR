@@ -40,7 +40,7 @@ library(samExploreR)
 \title{Manual for the package samExploreR }
 
 \author{Alexey Stupnikov\textsuperscript{1}, Shailesh Tripathi\textsuperscript{1,2}, Ricardo de Matos Simoes\textsuperscript{1}, Darragh McArt\textsuperscript{3}, \\Manuel Salto-Tellez\textsuperscript{3}, Galina Glazko\textsuperscript{4} and Frank Emmert-Streib\textsuperscript{1,5,6,*}\\
-\textsuperscript{1}Computational Biology and Machine Learning Laboratory,\\ Center for Cancer Research and Cell Biology,\\ School of Medicine, Dentistry and Biomedical Sciences,\\ Faculty of Medicine, Health and Life Sciences,\\ Queen'€™s University Belfast, UK\\
+\textsuperscript{1}Computational Biology and Machine Learning Laboratory,\\ Center for Cancer Research and Cell Biology,\\ School of Medicine, Dentistry and Biomedical Sciences,\\ Faculty of Medicine, Health and Life Sciences,\\ Queen's University Belfast, UK\\
 \textsuperscript{2}School of Mathematics and Physics,\\ Queen's University Belfast, BT7 1NN Belfast, UK\\
 \textsuperscript{3}Northern Ireland Molecular Pathology Laboratory, \\Centre for Cancer Research and Cell Biology, \\Queen's University Belfast, BT9 7AE Belfast, UK\\
 \textsuperscript{4}Division of Biomedical Informatics, University of Arkansas for Medical Sciences, \\Little Rock,
@@ -102,24 +102,24 @@ Installation command: call the following command from an R prompt.
 
 If a user wants to make changes to the package and rebuild it again, then the following packages need to be installed additionally. These are necessary for the compilation and the building the package. 
 
-1)	BiocCheck:
+1)BiocCheck:
 \begin{verbatim}
 > source("http://bioconductor.org/biocLite.R")
 > biocLite("BiocCheck")
 \end{verbatim}
 
-2)  BiocGenerics:
+2)BiocGenerics:
 \begin{verbatim}
 > source("http://bioconductor.org/biocLite.R")
 > biocLite("BiocGenerics")
 \end{verbatim}
 
- 3) 	RUnit:
+3)RUnit:
 \begin{verbatim}
 > install.packages("RUnit")
 \end{verbatim}
 
-4) Matrix:
+4)Matrix:
 \begin{verbatim}
 > install.packages("Matrix")
 \end{verbatim}
@@ -358,7 +358,6 @@ data("df_sole")
 data("df_intersect")
 head(df_sole)
 #head(df_intersect)
-
 @
 }
 
