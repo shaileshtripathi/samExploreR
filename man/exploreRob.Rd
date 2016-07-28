@@ -36,7 +36,7 @@ AnnotC	0.8	160
 }
 
 exploreRob
-Thired column gives the values to compare (here number of differentially expressed genes)
+Third column gives the values to compare (here number of differentially expressed genes)
 
  \code{exploreRob} function subsets the dataset to consider only valyes for one type of annotation and runs ANOVA test for groups corresponding to f values of interest.
 
@@ -50,14 +50,14 @@ An output of aov function
 %\note{}
 \examples{
 %\dontrun{
-library(samExplore)
+library(samExploreR)
 data("df_sole")
 #run ANOVA for annotation type labeled 'New, Gene' and f values 0.9, 0.95
 exploreRob(df_sole, lbl = 'New, Gene', f_vect = c(0.9, 0.95))
 
 
 #run ANOVA for annotation type labeled 'Old' and f values 0.5, 0.95
-exploreRob(df_sole, lbl = 'Old', f_vect = c(0.5, 0.95))
+exploreRob(df_sole, lbl = 'Old, Gene', f_vect = c(0.5, 0.95))
 
 
 %}
