@@ -2,6 +2,9 @@
 
 #cp src/Makevars.in src/Makevars
 
+mkdir ~/tmp
+export TMPDIR=~/tmp
+
 UNAME=`uname`
 
 echo @@@@@ The operating system is $UNAME.
