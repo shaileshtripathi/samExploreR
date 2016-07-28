@@ -1,7 +1,7 @@
 Package: samExploreR
 Type: Package
 Title: samExploreR package: high-performance read summarisation to count vectors with avaliability of sequencing depth reduction simulation
-Version: 1.0.12
+Version: 1.0.13
 Depends: ggplot2,pBrackets,colorspace,R (>= 3.1.0)
 Author: Alexey Stupnikov, Shailesh Tripathi and Frank Emmert-Streib with contributions from Wei Shi and Yang Liao
 Maintainer: Alexey Stupnikov,Shailesh Tripathi <shailesh.tripathy@gmail.com>
