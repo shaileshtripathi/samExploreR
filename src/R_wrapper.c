@@ -25,7 +25,7 @@
 #if (R_VERSION >= R_Version(2,3,0))
 #define R_INTERFACE_PTRS 1
 #define CSTACK_DEFNS 1
-//#include "Rinterface.h"
+#include <Rinterface.h>
 #endif 
 
 int main_junction(int argc,char ** argv);
