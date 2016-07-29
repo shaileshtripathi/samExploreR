@@ -105,7 +105,7 @@ extern int R_running_as_main_program;
 #ifdef CSTACK_DEFNS
 /* duplicating Defn.h */
 #if !defined(HAVE_UINTPTR_T) && !defined(uintptr_t)
- typedef unsigned long uintptr_t;
+// typedef unsigned long uintptr_t;
 #endif
 
 extern uintptr_t R_CStackLimit;	/* C stack limit */
