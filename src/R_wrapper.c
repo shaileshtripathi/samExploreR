@@ -22,11 +22,18 @@
 #include <string.h>
 #include <unistd.h>
 #include <Rversion.h>
+
+#ifndef WIN32
+#define WIN32 _WIN32
+#endif
+
 #if (R_VERSION >= R_Version(2,3,0))
 #define R_INTERFACE_PTRS 1
 #define CSTACK_DEFNS 1
 #include <Rinterface.h>
 #endif 
+
+
 
 int main_junction(int argc,char ** argv);
 int main_align(int argc,char ** argv);
