@@ -17,15 +17,16 @@
    Authors: Drs Yang Liao and Wei Shi
 
   ***************************************************************/
+#ifndef WIN32
+#define WIN32 _WIN32
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <Rversion.h>
 
-#ifndef WIN32
-#define WIN32 _WIN32
-#endif
 
 #if (R_VERSION >= R_Version(2,3,0))
 #define R_INTERFACE_PTRS 1
