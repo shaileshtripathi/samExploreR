@@ -17,6 +17,7 @@
    Authors: Drs Yang Liao and Wei Shi
 
   ***************************************************************/
+// Adding macros for windows compilation
 #ifndef WIN32
 #define WIN32 _WIN32
 #endif
