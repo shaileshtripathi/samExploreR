@@ -10,5 +10,3 @@ License: GPL-3
 LazyLoad: yes
 Suggests: BiocStyle,RUnit,BiocGenerics,Matrix
 biocViews: Sequencing, SequenceMatching, RNASeq, ChIPSeq, DNASeq, WholeGenome, GeneTarget, Alignment, GeneExpression, GeneticVariability, GeneRegulation, Preprocessing, GenomeAnnotation, Software
-Packaged: 2016-07-19 13:59:18 UTC; stripathi
-NeedsCompilation: yes
