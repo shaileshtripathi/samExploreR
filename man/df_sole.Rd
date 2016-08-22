@@ -20,6 +20,7 @@
 \details{
  is a dataframe object
 }
+\value{}
 \examples{
 data(df_sole)
 

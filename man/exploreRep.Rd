@@ -50,7 +50,7 @@ An output of aov function
 %\note{}
 \examples{
 %\dontrun{
-library(samExploreR)
+#library(samExploreR)
 data("df_sole")
 #run ANOVA for annotation types labeled 'New, Gene' and 'New, Exon' and f value 0.9
 exploreRep(df_sole, lbl_vect = c('New, Gene', 'Old, Gene'), f = 0.9)
