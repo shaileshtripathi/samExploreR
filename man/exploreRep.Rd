@@ -6,13 +6,18 @@
 exploreRep((df_d, lbl_vect, f))
 }
 \arguments{
-  \item{df_d}{ a dataframe containing the dataset to explore with 3 columns : label, f ratio, value to compare (e.g. number of differentially expressed genes)}
-  \item{lbl_vect}{a vector of character strings specifing the labels for which the analysis should be run}
+  \item{df_d}{ a dataframe containing the dataset to explore with 3 columns: 
+   label, f ratio, value to compare (e.g. number of differentially 
+   expressed genes)}
+  \item{lbl_vect}{a vector of character strings specifing the labels for 
+   which the analysis should be run}
   \item{f}{ A numeric value of f for which the analysis should be run}
-
   }
 \details{
-\code{exploreRep} function to explore the reproducibility of the analysis with altering of annotation. It runs ANOVA test for values to compare (e.g. number of differentially expressed genes) corresponding to different Annotation labels (i.e. analysis' run for different annotation types)
+\code{exploreRep} function to explore the reproducibility of the analysis 
+ with altering of annotation. It runs ANOVA test for values to compare 
+ (e.g. number of differentially expressed genes) corresponding to different 
+ Annotation labels (i.e. analysis' run for different annotation types)
 
 This function takes as input a dataframe containing the dataset to explore.
 
@@ -35,12 +40,12 @@ AnnotC	0.8	160
 ...
 }
 
-exploreRob
-Thired column gives the values to compare (here number of differentially expressed genes)
+\code{exploreRob}
+Thired column gives the values to compare (here number of differentially
+ expressed genes).
 
- \code{exploreRep} function subsets the dataset to consider only valyes for one f  and runs ANOVA test for groups corresponding to annotations of interest.
-
-
+\code{exploreRep} function subsets the dataset to consider only valyes for one 
+f and runs ANOVA test for groups corresponding to annotations of interest.
 }
 \value{ 
 An output of aov function
@@ -52,17 +57,11 @@ An output of aov function
 %\dontrun{
 #library(samExploreR)
 data("df_sole")
-#run ANOVA for annotation types labeled 'New, Gene' and 'New, Exon' and f value 0.9
+#run ANOVA for annotation types labeled 'New, Gene' and 'New, Exon' and 
+#f value 0.9
 exploreRep(df_sole, lbl_vect = c('New, Gene', 'Old, Gene'), f = 0.9)
-
 
 #run ANOVA for annotation type labeled 'Old' and 'New' and f value 0.5
 exploreRep(df_sole, lbl_vect = c('New, Gene', 'Old, Gene'), f = 0.5)
-
-
 %}
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-%\keyword{}
-%\keyword{}% __ONLY ONE__ keyword per line

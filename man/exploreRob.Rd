@@ -1,18 +1,25 @@
 \name{exploreRob}
 \alias{exploreRob}
 \title{exploreRob: function to explore the robustness}
-\description{This function explores the robustness of analysis with sequencing depth altering}
+\description{This function explores the robustness of analysis with 
+ sequencing depth altering}
 \usage{
 exploreRob((df_d, lbl, f_vect))
 }
 \arguments{
-  \item{df_d}{ a dataframe containing the dataset to explore with 3 columns : label, f ratio, value to compare (e.g. number of differentially expressed genes)}
-  \item{lbl}{ a character string specifing the label for which the analysis should be run}
-  \item{f_vect}{ A numeric vector containing the values of f for which the analysis should be run}
-
-  }
+  \item{df_d}{ a dataframe containing the dataset to explore with 3 
+  columns : label, f ratio, value to compare 
+  (e.g. number of differentially expressed genes)}
+  \item{lbl}{ a character string specifing the label 
+   for which the analysis should be run}
+  \item{f_vect}{ A numeric vector containing the values 
+   of f for which the analysis should be run}
+}
 \details{
-\code{exploreRob} function to explore the robustness of the analysis with altering of sequencing depth. It runs ANOVA test for values to compare (e.g. number of differentially expressed genes) corresponding to different f ratio values (i.e. values of sequencing depth)
+\code{exploreRob} function to explore the robustness of the analysis 
+ with altering of sequencing depth. It runs ANOVA test for values to 
+ compare (e.g. number of differentially expressed genes) corresponding 
+ to different f ratio values (i.e. values of sequencing depth)
 
 This function takes as input a dataframe containing the dataset to explore.
 
@@ -35,10 +42,13 @@ AnnotC	0.8	160
 ...
 }
 
-exploreRob
-Third column gives the values to compare (here number of differentially expressed genes)
+%exploreRob
+%Third column gives the values to compare 
+%(here number of differentially expressed genes)
 
- \code{exploreRob} function subsets the dataset to consider only valyes for one type of annotation and runs ANOVA test for groups corresponding to f values of interest.
+ \code{exploreRob} function subsets the dataset to consider only valyes for 
+ one type of annotation and runs ANOVA test for groups corresponding to f 
+ values of interest.
 
 
 }

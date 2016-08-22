@@ -2,11 +2,11 @@
 \alias{df_sole}
 \docType{data}
 \title{
-	Example data for plotting output of samExplore function.
+    Example data for plotting output of samExplore function.
 }
 \description{
 	
-	Example data for plotting output of samExplore function.
+    Example data for plotting output of samExplore function.
 }
 \usage{data("df_sole")}
 \format{
