@@ -14,10 +14,12 @@ library("pBrackets")
       y=c(0,1,1,2,1,1,0)/2*(height) + y
   )
 }
-plotsamExplorer <- function(dat, save=FALSE, filename=NULL, p.depth=.90, font.size=3.5, anova=TRUE,x.lab=NULL, y.lab=NULL, leg.lab=NULL){
+plotsamExplorer <- function(dat, save=FALSE, filename=NULL, p.depth=.90, 
+font.size=3.5, anova=TRUE,x.lab=NULL, y.lab=NULL, leg.lab=NULL){
 pgg <- NULL
 addlines <- function(xc, yc, cl, lab=NULL, font.size){
-   annotate("text", label = lab, fontface="bold", x = xc, y = yc, size = font.size,  colour = cl) 
+   annotate("text", label = lab, fontface="bold", x = xc, y = yc,
+   size = font.size,  colour = cl) 
 }
 ytmp <- max(dat$Value)
 xtmp <- min(dat$Variable)
@@ -35,13 +37,15 @@ xtmp <- min(dat$Variable)
  xm1 <- which(xm1==as.numeric(names(table(dat$Variable))))
  xm2 <- length(table(dat$Variable)) -1
  cols = .gg_color_hue(lenfactor)
-  new.df <- data.frame(fa=rep("# DE genes", L), f = as.factor(dat$Variable), value = dat$Value, group = as.factor(dat$Label))
- colar <- "coral"
- colar2 <- "seagreen3"
+  new.df <- data.frame(fa=rep("# DE genes", L), f = as.factor(dat$Variable), 
+  value = dat$Value, group = as.factor(dat$Label))
+  colar <- "coral"
+  colar2 <- "seagreen3"
  #xm1 <- 11.5
  #xm2 <- 14.5
  pgg <- ggplot(new.df, aes(x = f, y=value, fill=group, color=group)) + 
- geom_boxplot(notch=TRUE, notchwidth=3, position=position_dodge(width=0.0), outlier.size=1) +
+ geom_boxplot(notch=TRUE, notchwidth=3, 
+ position=position_dodge(width=0.0), outlier.size=1) +
  scale_fill_manual(name = "Annotation", values = cols) +
  scale_color_manual(guide="none", values = rep( "gray40", lenfactor)) +
  ylab("") +
@@ -75,7 +79,8 @@ if(anova){
 
  cnt=0
 for(i in 1:lenfactor){
-pgg <- pgg + addlines(length(table(dat$Variable))-3+crd[i,1],crd[i,2]+5,cols[i], lab=paste("p-value", pv[i]),font.size) 
+pgg <- pgg + addlines(length(table(dat$Variable))-3+crd[i,1],crd[i,2]+5,
+cols[i], lab=paste("p-value", pv[i]),font.size) 
 cnt= cnt -50
 }
  #print(dpth)
@@ -89,11 +94,13 @@ cnt= cnt -50
      ymx <- max(dat[tt,]$Value[tt1])
     #}
 
-  pgg <- pgg + annotate("rect", xmin = xm1-.5, xmax = xm2+.5, ymin = ymn, ymax = ymx, alpha = .2) 
+  pgg <- pgg + annotate("rect", xmin = xm1-.5, xmax = xm2+.5, 
+  ymin = ymn, ymax = ymx, alpha = .2) 
  }
 }
 
- # annotate("text", label = "r = 3", fontface="bold", x = 13.0, y = 90,  face="bold", size = font.size, colour = "black") 
+ # annotate("text", label = "r = 3", fontface="bold", x = 13.0, y = 90,  
+ #face="bold", size = font.size, colour = "black") 
 
  plot(pgg)
  #grid.brackets(425, 190, 340, 190, lwd=1, h=0.02)

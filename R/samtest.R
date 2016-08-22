@@ -9,7 +9,8 @@ stop('Invalid f set')
 }
 df_d_sub <- df_d[df_d[,1] == lbl,]
 df_d_sub <- df_d_sub[df_d_sub[,2] %in% f_vect, 2:3]
-print(paste('ANOVA test for label \'',lbl, '\' and f values ', paste(as.character(f_vect), collapse = ', '), sep = ''))
+print(paste('ANOVA test for label \'',lbl, '\' and f values ', 
+paste(as.character(f_vect), collapse = ', '), sep = ''))
 aov(df_d_sub[,2] ~ df_d_sub[,1], data = df_d_sub)
 }
 
@@ -24,7 +25,7 @@ stop('Invalid lbl set')
 }
 df_d_sub <- df_d[df_d[,2] == f,]
 df_d_sub <- df_d_sub[df_d_sub[,1] %in% lbl_vect, c(1,3)]
-print(paste('ANOVA test for labels \'',paste(as.character(lbl_vect), collapse = '\', \''), '\' and f value ',f , sep = ''))
+print(paste('ANOVA test for labels \'',paste(as.character(lbl_vect), 
+collapse = '\', \''), '\' and f value ',f , sep = ''))
 aov(df_d_sub[,2] ~ df_d_sub[,1], data = df_d_sub)
 }
-

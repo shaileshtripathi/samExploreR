@@ -1,4 +1,6 @@
-#include "R_ext/Rdynload.h"
+#include <R_ext/Rdynload.h>
+#include <Rinternals.h>
+#include <R.h>
 #include "regrsub.h"
 
 static const R_CMethodDef cMethods[]  = {
