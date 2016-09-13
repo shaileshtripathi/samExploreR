@@ -1,4 +1,5 @@
 #useDynLib(samExploreR,.registration = TRUE)
 import(ggplot2)
+import(edgeR)
 exportPattern("^[^\\.]")
 export("samExplore")
