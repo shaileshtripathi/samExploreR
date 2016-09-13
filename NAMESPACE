@@ -1,3 +1,4 @@
-useDynLib(samExploreR,.registration = TRUE, .fixes = "C_")
+#useDynLib(samExploreR,.registration = TRUE)
 import(ggplot2)
 exportPattern("^[^\\.]")
+export("samExplore")

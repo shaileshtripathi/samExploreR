@@ -1,8 +1,8 @@
 Package: samExploreR
 Type: Package
 Title: samExploreR package: high-performance read summarisation to count vectors with avaliability of sequencing depth reduction simulation
-Version: 0.99.23
-Depends: ggplot2,pBrackets,colorspace,R (>= 3.3.0)
+Version: 0.99.24
+Depends: ggplot2,pBrackets,colorspace,Rsubread, edgeR,R (>= 3.2.0)
 Author: Alexey Stupnikov, Shailesh Tripathi and Frank Emmert-Streib with contributions from Wei Shi and Yang Liao
 Maintainer: shailesh tripathi <shailesh.tripathy@gmail.com>
 Description: This R package is designed for subsampling procedure to simulate sequencing experiments with reduced sequencing depth. This package can be used to anlayze data generated from all major sequencing platforms such as Illumina GA, HiSeq, MiSeq, Roche GS-FLX, ABI SOLiD and LifeTech Ion PGM Proton sequencers. It supports multiple operating systems incluidng Linux, Mac OS X, FreeBSD and Solaris. Was developed with usage of Rsubread 1.16.1

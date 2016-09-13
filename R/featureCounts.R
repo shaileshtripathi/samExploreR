@@ -1,129 +1,87 @@
-samExplore <- function(files,annot.inbuilt="mm9",annot.ext=NULL,
-isGTFAnnotationFile=FALSE,GTF.featureType="exon",
-GTF.attrType="gene_id",useMetaFeatures=TRUE,allowMultiOverlap=FALSE,
-isPairedEnd=FALSE,requireBothEndsMapped=FALSE,checkFragLength=FALSE,
-minFragLength=50,maxFragLength=600,nthreads=1,strandSpecific=0,
-minMQS=0,readExtension5=0,readExtension3=0,
-read2pos=NULL,minReadOverlap=1,countSplitAlignmentsOnly=FALSE,
-countMultiMappingReads=FALSE,countPrimaryAlignmentsOnly=FALSE,
-countChimericFragments=TRUE,ignoreDup=FALSE,chrAliases=NULL,
-reportReads=FALSE, subsample_d=1, N_boot=1){
+samExplore <- function (files, annot.inbuilt = "mm10", annot.ext = NULL, isGTFAnnotationFile = FALSE, 
+    GTF.featureType = "exon", GTF.attrType = "gene_id", chrAliases = NULL, 
+    useMetaFeatures = TRUE, allowMultiOverlap = FALSE, minOverlap = 1, 
+    largestOverlap = FALSE, readExtension5 = 0, readExtension3 = 0, 
+    read2pos = NULL, countMultiMappingReads = FALSE, fraction = FALSE, 
+    minMQS = 0, splitOnly = FALSE, nonSplitOnly = FALSE, primaryOnly = FALSE, 
+    ignoreDup = FALSE, strandSpecific = 0, juncCounts = FALSE, 
+    genome = NULL, isPairedEnd = FALSE, requireBothEndsMapped = FALSE, 
+    checkFragLength = FALSE, minFragLength = 50, maxFragLength = 600, 
+    countChimericFragments = TRUE, autosort = TRUE, nthreads = 1, 
+    maxMOp = 10, reportReads = FALSE, subsample_d=1, N_boot=1,
+    countboot=c("all","Assigned", "Unassigned_Ambiguity",
+    "Unassigned_MultiMapping",   "Unassigned_NoFeatures",
+    "Unassigned_Unmapped",       "Unassigned_MappingQuality",
+    "Unassigned_FragmentLength", "Unassigned_Chimera",
+    "Unassigned_Secondary",      "Unassigned_Nonjunction",
+    "Unassigned_Duplicate" )){
+
  .printParam(subsample_d, N_boot) 
  resultlist <- list()
- for(i in 1:N_boot){
+ 
+fc <- featureCounts(
+	files=files, annot.inbuilt =annot.inbuilt , annot.ext = annot.ext,
+ isGTFAnnotationFile = isGTFAnnotationFile,
+    GTF.featureType = GTF.featureType, GTF.attrType =GTF.attrType, chrAliases =chrAliases,
+    useMetaFeatures = useMetaFeatures, allowMultiOverlap = allowMultiOverlap, minOverlap = minOverlap,
+    largestOverlap = largestOverlap, readExtension5 = readExtension5, readExtension3 = readExtension3,
+    read2pos = read2pos, countMultiMappingReads = countMultiMappingReads, fraction = fraction,
+    minMQS = minMQS, splitOnly = splitOnly, nonSplitOnly = nonSplitOnly, primaryOnly = primaryOnly,
+    ignoreDup = ignoreDup, strandSpecific = strandSpecific, juncCounts = juncCounts,
+    genome = genome, isPairedEnd = isPairedEnd, requireBothEndsMapped = requireBothEndsMapped,
+    checkFragLength = checkFragLength, minFragLength = minFragLength, maxFragLength = maxFragLength,
+    countChimericFragments = TRUE, autosort = TRUE, nthreads = 1,
+    maxMOp = maxMOp, reportRead=reportReads)
+    
+ ts <- c()
+for(i in 1:ncol(fc$counts)){
+  fctmp <- list()
+  fctmp[["counts"]] <- as.matrix(fc$counts[,i])
+  fctmp[["stat"]] <- fc$stat[,c(1,(i+1))]	
  cat("//========================== Sub sampling ========================\\\\ \n")
  cat(paste("||		Sub sample N: ", i,"			||","\n",sep=""))
  cat("\\\\===================================================================//")
- resultlist[[i]] <- .featureCounts(files,annot.inbuilt,annot.ext,
-  isGTFAnnotationFile,GTF.featureType,GTF.attrType,useMetaFeatures,
-  allowMultiOverlap,isPairedEnd,requireBothEndsMapped,checkFragLength,
-  minFragLength,maxFragLength,nthreads,strandSpecific,minMQS,
-  readExtension5,readExtension3,read2pos,minReadOverlap,
-  countSplitAlignmentsOnly,countMultiMappingReads,
-  countPrimaryAlignmentsOnly,countChimericFragments,ignoreDup,
-  chrAliases,reportReads, subsample_d)	
+ restmp <- .featureCountsBoot(fctmp,
+  subsample_d=subsample_d, N_boot=N_boot, countboot=countboot)	
+ 
+ resultlist[[i]] <- restmp[[1]]
+ ts <- c(ts, restmp[[2]])
  }
- resultlist
+names(resultlist) <- fc$targets
+names(ts) <- fc$targets
+list(bootres=resultlist, target.size=ts, featuremain=fc)
 }
 
 
-.featureCounts <- function(files,annot.inbuilt="mm9",annot.ext=NULL,
-isGTFAnnotationFile=FALSE,GTF.featureType="exon",GTF.attrType="gene_id",
-useMetaFeatures=TRUE,allowMultiOverlap=FALSE,
-isPairedEnd=FALSE,requireBothEndsMapped=FALSE,
-checkFragLength=FALSE,minFragLength=50,
-maxFragLength=600,nthreads=1,strandSpecific=0,
-minMQS=0,readExtension5=0,readExtension3=0,
-read2pos=NULL,minReadOverlap=1,countSplitAlignmentsOnly=FALSE,
-countMultiMappingReads=FALSE,countPrimaryAlignmentsOnly=FALSE,
-countChimericFragments=TRUE,ignoreDup=FALSE,chrAliases=NULL,
-reportReads=FALSE, subsample_d=1)
+.featureCountsBoot <- function(flcount,
+subsample_d=1, N_boot=10, countboot="all")
 {
-flag <- FALSE
-if(is.null(annot.ext)){
- switch(tolower(as.character(annot.inbuilt)),
- mm9={
- ann <- system.file("annot","mm9_RefSeq_exon.txt",package="samExploreR")
- cat("NCBI RefSeq annotation for mm9 (build 37.2) is used.\n")
- },
- mm10={
- ann <- system.file("annot","mm10_RefSeq_exon.txt",package="samExploreR")
- cat("NCBI RefSeq annotation for mm10 (build 38.1) is used.\n")
- },
- hg19={
- ann <- system.file("annot","hg19_RefSeq_exon.txt",package="samExploreR")
- cat("NCBI RefSeq annotation for hg19 (build 37.2) is used.\n")
- },
- {
- stop("In-built annotation for ", annot.inbuilt, " is not available.\n")
- }
- ) # end switch
-}
-else{
- if(is.character(annot.ext)){
- ann <- annot.ext
-}
-else{
- annot_df <- as.data.frame(annot.ext,stringsAsFactors=FALSE)
- if(sum(c("geneid","chr","start","end", "strand") %in% 
-    tolower(colnames(annot_df))) != 5)
-      stop("One or more required columns are missing in the provided 
-      annotation data. Please refer to help page 
-      for annotation format.\n")
- colnames(annot_df) <- tolower(colnames(annot_df))
- annot_df <- data.frame(geneid=annot_df$geneid,chr=annot_df$chr,
- start=annot_df$start,end=annot_df$end,strand=annot_df$strand,
- stringsAsFactors=FALSE)
- annot_df$chr <- as.character(annot_df$chr)
- fout_annot <- file.path(".",paste(".Rsubread_UserProvidedAnnotation_pid",
- Sys.getpid(),sep=""))
- oldScipen <- options(scipen=999)
- write.table(x=annot_df,file=fout_annot,sep="\t",row.names=FALSE,quote=FALSE)
- options(oldScipen)
- ann <- fout_annot
- flag <- TRUE
-}
-}
+    ts <- seq <- NULL
+	totalcount <- as.numeric(flcount$stat[,2])
+	names(totalcount) <- as.vector(flcount$stat[,1])
+	if(countboot[1]=="all"){
+            ts <- round(sum(totalcount)*subsample_d)
+	    seqtmp <- as.vector(flcount$counts)
+	    names(seqtmp) <- rownames(flcount$counts)		
+	    seq <- c(seqtmp, totalcount[-which(names(totalcount)=="Assigned")])	
+        } 
+	else{
+	    countboot <- unique(c("Assigned",countboot))
+            ts <- round(sum(totalcount[countboot])*subsample_d)
+	    seqtmp <- as.vector(flcount$counts)
+            names(seqtmp) <- rownames(flcount$counts)
+	    tmpx <- totalcount[countboot]
+	    tmpx <- tmpx[-which(names(tmpx)=="Assigned")]
+	    seq <- c(seqtmp, tmpx)	
+	}
+	bootmat <- c()
+   	
+    for(i in 1:N_boot){	
+        tmp <- thinCounts(seq, target.size=ts)
+    	bootmat <- cbind(bootmat, tmp[rownames(flcount$counts),]) 
+    }
+    list(bootmat, target.size=unique(ts,sum(tmp)))
 
-fout <- file.path(".",paste(".Rsubread_featureCounts_pid",Sys.getpid(),sep=""))
-files_C <- paste(files,collapse=";")
-#if(nchar(files_C) == 0) stop("No read files provided!")
- chrAliases_C <- chrAliases
- if(is.null(chrAliases))
- chrAliases_C <- " "
- countMultiMappingReads_C <- countMultiMappingReads
- if(countPrimaryAlignmentsOnly) countMultiMappingReads_C <- 2
- read2pos_C <- read2pos
- if(is.null(read2pos)) read2pos_C <- 0
- cmd <- paste("readSummary",ann,files_C,fout,as.numeric(isPairedEnd),
- minFragLength,maxFragLength,
- 0,as.numeric(allowMultiOverlap),as.numeric(useMetaFeatures),nthreads,
- as.numeric(isGTFAnnotationFile),strandSpecific,as.numeric(reportReads),
- as.numeric(requireBothEndsMapped),as.numeric(!countChimericFragments),
- as.numeric(checkFragLength),GTF.featureType,GTF.attrType,minMQS,
- as.numeric(countMultiMappingReads_C),chrAliases_C," ",as.numeric(FALSE),
- 14,readExtension5,readExtension3,minReadOverlap,
- as.numeric(countSplitAlignmentsOnly),
- read2pos_C," ",as.numeric(ignoreDup)," ", as.numeric(subsample_d),sep=",")
- n <- length(unlist(strsplit(cmd,",")))
- C_args <- .C("R_readSummary_wrapper",as.integer(n),as.character(cmd),
- PACKAGE="samExploreR")
-
- x <- read.delim(fout,stringsAsFactors=FALSE)
- colnames(x)[1:6] <- c("GeneID","Chr","Start","End","Strand","Length")
- x_summary <- read.delim(paste(fout,".summary",sep=""), stringsAsFactors=FALSE)
- file.remove(fout)
- file.remove(paste(fout,".summary",sep=""))
- if(flag) 
-  file.remove(fout_annot)
-  if(ncol(x) == 6){
-   stop("No count data were generated.")
-  }
- y <- as.matrix(x[,-c(1:6)])
- colnames(y) <- colnames(x)[-c(1:6)]
- rownames(y) <- x$GeneID
- z <- list(counts=y,annotation=x[,1:6],targets=colnames(y),stat=x_summary)
- z
 }
 .printParam <- function(depth=1, boot=1){
  cat("\n\n\n		samExplorer \n")
