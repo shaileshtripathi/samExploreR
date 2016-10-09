@@ -1,6 +1,8 @@
 #useDynLib(samExploreR,.registration = TRUE)
 import(ggplot2)
 import(edgeR)
+import(Rsubread)
+import(colorspace)
 exportPattern("^[^\\.]")
 export("samExplore")
 export("plotsamExplorer")
