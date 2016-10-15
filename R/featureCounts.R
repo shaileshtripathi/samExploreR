@@ -31,7 +31,7 @@ fc <- featureCounts(
     genome = genome, isPairedEnd = isPairedEnd, requireBothEndsMapped = requireBothEndsMapped,
     checkFragLength = checkFragLength, minFragLength = minFragLength, maxFragLength = maxFragLength,
     countChimericFragments = TRUE, autosort = TRUE, nthreads = 1,
-    maxMOp = maxMOp, reportRead=reportReads)
+    maxMOp = maxMOp, reportReads=reportReads)
     
  ts <- c()
 for(i in 1:ncol(fc$counts)){
