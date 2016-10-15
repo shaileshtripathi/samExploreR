@@ -2,7 +2,7 @@
 \usepackage{makeidx}  % allows for indexgeneration
 \usepackage[dvips]{graphicx}
 \usepackage{dsfont}
-\VignetteIndexEntry{samExploreR}
+%\VignetteIndexEntry{samExploreR}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 %\usepackage{bbb}
