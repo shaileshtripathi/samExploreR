@@ -14,13 +14,12 @@ minReadOverlap=1,countSplitAlignmentsOnly=FALSE,
 countMultiMappingReads=FALSE,countPrimaryAlignmentsOnly=FALSE,
 countChimericFragments=TRUE,ignoreDup=FALSE,chrAliases=NULL,
 reportReads=FALSE, subsample_d=1, N_boot=1,
-countboot=c("all","Assigned", "Unassigned_Ambiguity",
-    "Unassigned_MultiMapping",   "Unassigned_NoFeatures",
-    "Unassigned_Unmapped",       "Unassigned_MappingQuality",
-    "Unassigned_FragmentLength", "Unassigned_Chimera",
-    "Unassigned_Secondary",      "Unassigned_Nonjunction",
-    "Unassigned_Duplicate"
-)
+countboot=c("all","Assigned","Unassigned_Ambiguity",
+"Unassigned_MultiMapping","Unassigned_NoFeatures",
+"Unassigned_Unmapped","Unassigned_MappingQuality",
+"Unassigned_FragmentLength","Unassigned_Chimera",
+"Unassigned_Secondary","Unassigned_Nonjunction",
+"Unassigned_Duplicate")
 }
 \arguments{
  \item{files}{ a character vector giving names of input files containing 
