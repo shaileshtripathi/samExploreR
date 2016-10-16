@@ -19,7 +19,7 @@ countboot=c("all","Assigned","Unassigned_Ambiguity",
 "Unassigned_Unmapped","Unassigned_MappingQuality",
 "Unassigned_FragmentLength","Unassigned_Chimera",
 "Unassigned_Secondary","Unassigned_Nonjunction",
-"Unassigned_Duplicate")
+"Unassigned_Duplicate"))
 }
 \arguments{
  \item{files}{ a character vector giving names of input files containing 
