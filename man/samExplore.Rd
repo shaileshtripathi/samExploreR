@@ -181,8 +181,8 @@ when \code{fraction} is \code{TRUE}.
 \item{nonSplitOnly}{Check featureCounts function of Rsubread package for the desription}
 \item{primaryOnly}{Check featureCounts function of Rsubread package for the desription}
 \item{juncCounts}{Check featureCounts function of Rsubread package for the desription}
-\item{genome} {\code{NULL} by default.
-a character string giving the name of a FASTA-format file
+\item{genome}{
+\code{NULL} by default, a character string giving the name of a FASTA-format file
 that includes the reference genome sequences. The reference
 genome provided here should be the same as the one used in
 read mapping.
