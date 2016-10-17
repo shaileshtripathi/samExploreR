@@ -153,33 +153,29 @@ samExplore(files, annot.inbuilt = "mm10", annot.ext = NULL, isGTFAnnotationFile 
    read/fragment, status(assigned or the reason if not assigned), 
    name of target feature/meta-feature and number of hits if the read/fragment 
    is counted multiple times. Name of the file is the same as name of the input 
-   read file except a suffix 'featureCounts' is added. Multiple files will be 
+   read file except a suffix \code{featureCounts} is added. Multiple files will be 
    generated if there is more than one input read file.}
  \item{subsample_d}{numeric value which describes fraction of reads to be 
   remained in subsampling. }
  \item{N_boot}{integer value for number of resample procedures to be run.}
 \item{countboot}{is a character vector which contains following options:
-    "all","Assigned", "Unassigned_Ambiguity",
-    "Unassigned_MultiMapping",   "Unassigned_NoFeatures",
-    "Unassigned_Unmapped",       "Unassigned_MappingQuality",
-    "Unassigned_FragmentLength", "Unassigned_Chimera",
-    "Unassigned_Secondary",      "Unassigned_Nonjunction",
-    "Unassigned_Duplicate  
+\code{all},\code{Assigned}, \code{Unassigned_Ambiguity},
+    \code{Unassigned_MultiMapping},   \code{Unassigned_NoFeatures},
+    \code{Unassigned_Unmapped},       \code{Unassigned_MappingQuality},
+    \code{Unassigned_FragmentLength}, \code{Unassigned_Chimera},
+    \code{Unassigned_Secondary},      \code{Unassigned_Nonjunction},
+    \code{Unassigned_Duplicate}  
 A user can select any of theses options for resampling
-if user selects "all" then the resampling procedure will consider all
-"assigned" and "unassigned" reads. If a user selects "Assigned" option
-then resampling procedure will consider "Assigned" reads only for resampling.
+if user selects \code{all} then the resampling procedure will consider all
+\code{assigned} and \code{unassigned} reads. If a user selects \code{Assigned} option
+then resampling procedure will consider \code{Assigned} reads only for resampling.
 If a user selects any other option it will consider those unmapped reads along with
-"Assigned" reads. A user can selects more than one choices and input as a vector 
-
+\code{Assigned} reads. A user can selects more than one choices and input as a vector 
 }
 \item{fraction}{ 
-         logical indicating if fractional counts will be produced for
-          multi-mapping reads. If ‘TRUE’, a fractional count, 1/n, will
-          be generated for each reported alignment of a multi-mapping
-          read, where n is the total number of alignments reported for
-          that read. ‘countMultiMappingReads’ must be set to ‘TRUE’
-          when ‘fraction’ is ‘TRUE’.
+logical indicating if fractional counts will be produced for
+multi-mapping reads. If \code{TRUE}, a fractional count, 1/n, will be generated for each reported alignment of a multi-mapping read, where n is the total number of alignments reported for that read. \code{countMultiMappingReads} must be set to \code{TRUE}
+when \code{fraction} is \code{TRUE}.
 }
 \item{splitOnly}{Check featureCounts function of Rsubread package for the desription}
 \item{nonSplitOnly}{Check featureCounts function of Rsubread package for the desription}
@@ -187,9 +183,9 @@ If a user selects any other option it will consider those unmapped reads along w
 \item{juncCounts}{Check featureCounts function of Rsubread package for the desription}
 \item{genome} {\code{NULL} by default.
 a character string giving the name of a FASTA-format file
-          that includes the reference genome sequences. The reference
-          genome provided here should be the same as the one used in
-          read mapping. ‘NULL’ by default.
+that includes the reference genome sequences. The reference
+genome provided here should be the same as the one used in
+read mapping.
 }
 \item{autosort}{Check featureCounts function of Rsubread package for the desription}
 \item{ maxMOp}{Check featureCounts function of Rsubread package for the desription}
