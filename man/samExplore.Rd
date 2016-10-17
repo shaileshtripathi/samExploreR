@@ -4,22 +4,23 @@
 \description{ samExplore: This function assigns mapped sequencing reads to 
  genomic features and simulates a sample with reduced sequencing depth}
 \usage{
-samExplore(files,annot.inbuilt="mm9",annot.ext=NULL,isGTFAnnotationFile=FALSE,
-GTF.featureType="exon",GTF.attrType="gene_id",useMetaFeatures=TRUE,
-allowMultiOverlap=FALSE,isPairedEnd=FALSE,requireBothEndsMapped=FALSE,
-checkFragLength=FALSE,minFragLength=50,maxFragLength=600,
-nthreads=1,strandSpecific=0,minMQS=0,
-readExtension5=0,readExtension3=0,read2pos=NULL,
-minReadOverlap=1,countSplitAlignmentsOnly=FALSE,
-countMultiMappingReads=FALSE,countPrimaryAlignmentsOnly=FALSE,
-countChimericFragments=TRUE,ignoreDup=FALSE,chrAliases=NULL,
-reportReads=FALSE, subsample_d=1, N_boot=1,
-countboot=c("all","Assigned","Unassigned_Ambiguity",
-"Unassigned_MultiMapping","Unassigned_NoFeatures",
-"Unassigned_Unmapped","Unassigned_MappingQuality",
-"Unassigned_FragmentLength","Unassigned_Chimera",
-"Unassigned_Secondary","Unassigned_Nonjunction",
-"Unassigned_Duplicate"))
+samExplore(files, annot.inbuilt = "mm10", annot.ext = NULL, isGTFAnnotationFile = FALSE,
+    GTF.featureType = "exon", GTF.attrType = "gene_id", chrAliases = NULL,
+    useMetaFeatures = TRUE, allowMultiOverlap = FALSE, minOverlap = 1,
+    largestOverlap = FALSE, readExtension5 = 0, readExtension3 = 0, 
+    read2pos = NULL, countMultiMappingReads = FALSE, fraction = FALSE, 
+    minMQS = 0, splitOnly = FALSE, nonSplitOnly = FALSE, primaryOnly = FALSE,
+    ignoreDup = FALSE, strandSpecific = 0, juncCounts = FALSE, 
+    genome = NULL, isPairedEnd = FALSE, requireBothEndsMapped = FALSE,
+    checkFragLength = FALSE, minFragLength = 50, maxFragLength = 600, 
+    countChimericFragments = TRUE, autosort = TRUE, nthreads = 1,
+    maxMOp = 10, reportReads = FALSE, subsample_d=1, N_boot=1,
+    countboot=c("all","Assigned", "Unassigned_Ambiguity",
+    "Unassigned_MultiMapping",   "Unassigned_NoFeatures",
+    "Unassigned_Unmapped",       "Unassigned_MappingQuality",
+    "Unassigned_FragmentLength", "Unassigned_Chimera",
+    "Unassigned_Secondary",      "Unassigned_Nonjunction",
+    "Unassigned_Duplicate" ))
 }
 \arguments{
  \item{files}{ a character vector giving names of input files containing 
@@ -176,6 +177,8 @@ If a user selects any other option it will consider those unmapped reads along w
 "Assigned" reads. A user can selects more than one choices and input as a vector 
 
 }
+
+
   }
 \value{returns a list object.}
 \details{
