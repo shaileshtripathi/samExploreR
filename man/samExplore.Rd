@@ -113,7 +113,7 @@ samExplore(files, annot.inbuilt = "mm10", annot.ext = NULL, isGTFAnnotationFile 
           will be summed. If a negative value is provided, the read
           will be extended from both ends. \code{1} by default.
   }
-  \item{minOverlap}{ If \code{TRUE},
+  \item{largestOverlap}{ If \code{TRUE},
 	  a read (or read pair) will be assigned to
           the feature (or meta-feature) that has the largest number of
           overlapping bases, if the read (or read pair) overlaps with
@@ -183,7 +183,7 @@ If a user selects any other option it will consider those unmapped reads along w
 }
 \item{splitOnly}{Check featureCounts function of Rsubread package for the desription}
 \item{nonSplitOnly}{Check featureCounts function of Rsubread package for the desription}
-  \item{primaryOnly}{Check featureCounts function of Rsubread package for the desription}
+\item{primaryOnly}{Check featureCounts function of Rsubread package for the desription}
 \item{juncCounts}{Check featureCounts function of Rsubread package for the desription}
 \item{genome} {Check featureCounts function of Rsubread package for the desription}
 \item{autosort}{Check featureCounts function of Rsubread package for the desription}
