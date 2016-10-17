@@ -105,29 +105,25 @@ samExplore(files, annot.inbuilt = "mm10", annot.ext = NULL, isGTFAnnotationFile 
     most base position. \code{read2pos} can be used together with 
     \code{readExtension5} and \code{readExtension3} parameters to set any 
     desired length for reads.}
-  \item{minReadOverlap}{ \code{integer} giving the minimum number of 
-    overlapped bases between a read and a feature required for the read 
-    to be assigned to the feature. Negative values are also accepted, 
-    indicating a gap being allowed between a read and a feature. 
-    \code{1} by default.}
-  \item{countSplitAlignmentsOnly}{ logical indicating whether only split 
-    alignments (their CIGAR strings containing letter 'N') should be used 
-    for summarization. \code{FALSE} by default. Example split alignments 
-    are exon-spanning reads from RNA-seq data. \code{useMetaFeatures} should 
-    be set to \code{FALSE} and \code{allowMultiOverlap} should be set to 
-    \code{TRUE}, if the purpose of summarization is to assign exon-spanning 
-    reads to all their overlapping exons.}
+  \item{minOverlap}{ \code{integer}
+  giving the minimum number of overlapped bases
+          required for assigning a read to a feature (or a
+          meta-feature). For assignment of read pairs (fragments),
+          numbers of overlapping bases from each read in the same pair
+          will be summed. If a negative value is provided, the read
+          will be extended from both ends. \code{1} by default.
+  }
+  \item{minOverlap}{ If \code{TRUE},
+	  a read (or read pair) will be assigned to
+          the feature (or meta-feature) that has the largest number of
+          overlapping bases, if the read (or read pair) overlaps with
+          multiple features (or meta-features).  
+}
   \item{countMultiMappingReads}{ logical indicating if multi-mapping 
     reads/fragments should be counted, \code{FALSE} by default. 
     If \code{TRUE}, a multi-mapping read will be counted up to 
     N times if it has N reported mapping locations. 
     This function uses the 'NH' tag to find multi-mapping reads.}
-  \item{countPrimaryAlignmentsOnly}{ logical indicating if only primary 
-  alignments should be counted. Primary and secondary alignments are 
-  identified using bit 0x100 in the Flag field of SAM/BAM files. 
-  If \code{TRUE}, all primary alignments in a dataset will be counted 
-  no matter they are from multi-mapping reads or not 
-  (ie. \code{countMultiMappingReads} is ignored).}
   \item{countChimericFragments}{ logical indicating whether a chimeric fragment, 
    which has its two reads mapped to different chromosomes, should be counted 
    or not. If this fragment overlaps with only one feature 
@@ -177,7 +173,21 @@ If a user selects any other option it will consider those unmapped reads along w
 "Assigned" reads. A user can selects more than one choices and input as a vector 
 
 }
-
+\item{fraction}{ 
+         logical indicating if fractional counts will be produced for
+          multi-mapping reads. If ‘TRUE’, a fractional count, 1/n, will
+          be generated for each reported alignment of a multi-mapping
+          read, where n is the total number of alignments reported for
+          that read. ‘countMultiMappingReads’ must be set to ‘TRUE’
+          when ‘fraction’ is ‘TRUE’.
+}
+\item{splitOnly}{Check featureCounts function of Rsubread package for the desription}
+\item{nonSplitOnly}{Check featureCounts function of Rsubread package for the desription}
+  \item{primaryOnly}{Check featureCounts function of Rsubread package for the desription}
+\item{juncCounts}{Check featureCounts function of Rsubread package for the desription}
+\item{genome} {Check featureCounts function of Rsubread package for the desription}
+\item{autosort}{Check featureCounts function of Rsubread package for the desription}
+\item{ maxMOp}{Check featureCounts function of Rsubread package for the desription}
 
   }
 \value{returns a list object.}

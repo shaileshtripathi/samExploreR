@@ -4,7 +4,7 @@
 \description{This function explores the robustness of analysis with 
  sequencing depth altering}
 \usage{
-exploreRob((df_d, lbl, f_vect))
+exploreRob(df_d, lbl, f_vect)
 }
 \arguments{
   \item{df_d}{ a dataframe containing the dataset to explore with 3 

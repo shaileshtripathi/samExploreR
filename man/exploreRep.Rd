@@ -3,7 +3,7 @@
 \title{exploreRep: function to explore the reproducibility}
 \description{This function explores the reproducibility of analysis with annotation altering}
 \usage{
-exploreRep((df_d, lbl_vect, f))
+exploreRep(df_d, lbl_vect, f)
 }
 \arguments{
   \item{df_d}{ a dataframe containing the dataset to explore with 3 columns: 
