@@ -123,7 +123,7 @@ samExplore(files, annot.inbuilt = "mm10", annot.ext = NULL, isGTFAnnotationFile 
     reads/fragments should be counted, \code{FALSE} by default. 
     If \code{TRUE}, a multi-mapping read will be counted up to 
     N times if it has N reported mapping locations. 
-    This function uses the 'NH' tag to find multi-mapping reads.}
+    This function uses the \code{NH} tag to find multi-mapping reads.}
   \item{countChimericFragments}{ logical indicating whether a chimeric fragment, 
    which has its two reads mapped to different chromosomes, should be counted 
    or not. If this fragment overlaps with only one feature 
@@ -136,7 +136,7 @@ samExplore(files, annot.inbuilt = "mm10", annot.ext = NULL, isGTFAnnotationFile 
    when \code{isPairedEnd} is \code{TRUE}.}
   \item{ignoreDup}{ logical indicating whether reads marked as duplicates 
    should be ignored. \code{FALSE} by default. 
-   Read duplicates are identified using bit Ox400 in the FLAG field 
+   Read duplicates are identified using bit 0x400 in the FLAG field 
    in SAM/BAM files. The whole fragment (read pair) will be ignored 
    if paired end.}
   \item{chrAliases}{ a character string giving the name of a file that 
@@ -185,7 +185,12 @@ If a user selects any other option it will consider those unmapped reads along w
 \item{nonSplitOnly}{Check featureCounts function of Rsubread package for the desription}
 \item{primaryOnly}{Check featureCounts function of Rsubread package for the desription}
 \item{juncCounts}{Check featureCounts function of Rsubread package for the desription}
-\item{genome} {Check featureCounts function of Rsubread package for the desription}
+\item{genome} {\code{NULL} by default.
+a character string giving the name of a FASTA-format file
+          that includes the reference genome sequences. The reference
+          genome provided here should be the same as the one used in
+          read mapping. ‘NULL’ by default.
+}
 \item{autosort}{Check featureCounts function of Rsubread package for the desription}
 \item{ maxMOp}{Check featureCounts function of Rsubread package for the desription}
 
