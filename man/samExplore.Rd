@@ -13,13 +13,13 @@ samExplore(..., subsample_d=1, N_boot=1,
     "Unassigned_Duplicate" ))
 }
 \arguments{
- \item{...}{These are the same arguments of \code{featureCounts} function of \code{Rsubread} package, 
- for more details check \code{featureCounts} function.}
+ \item{...}{These are the same arguments of \code{featureCounts} function of 
+ \code{Rsubread} package, for more details check \code{featureCounts} function.}
  \item{subsample_d}{numeric value which describes fraction of reads to be 
   remained in subsampling. }
  \item{N_boot}{integer value for number of resample procedures to be run.}
-\item{countboot}{is a character vector which contains following options:
-\code{all},\code{Assigned}, \code{Unassigned_Ambiguity},
+ \item{countboot}{is a character vector which contains following options:
+ \code{all},\code{Assigned}, \code{Unassigned_Ambiguity},
     \code{Unassigned_MultiMapping},   \code{Unassigned_NoFeatures},
     \code{Unassigned_Unmapped},       \code{Unassigned_MappingQuality},
     \code{Unassigned_FragmentLength}, \code{Unassigned_Chimera},
