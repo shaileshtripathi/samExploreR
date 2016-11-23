@@ -6,7 +6,9 @@
 }
 \description{
 	
-    Example data for plotting output of samExplore function.
+    Example data for plotting output of samExplore function.Dataframe consists three columns, 
+first column contains names of new Genes or exons, second column provides sequence depth 
+and third column provide total counts for the corresponding sequence coverage.
 }
 \usage{data("df_sole")}
 \format{

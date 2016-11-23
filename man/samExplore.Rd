@@ -4,17 +4,7 @@
 \description{ samExplore: This function assigns mapped sequencing reads to 
  genomic features and simulates a sample with reduced sequencing depth}
 \usage{
-samExplore(files, annot.inbuilt = "mm10", annot.ext = NULL, isGTFAnnotationFile = FALSE,
-    GTF.featureType = "exon", GTF.attrType = "gene_id", chrAliases = NULL,
-    useMetaFeatures = TRUE, allowMultiOverlap = FALSE, minOverlap = 1,
-    largestOverlap = FALSE, readExtension5 = 0, readExtension3 = 0, 
-    read2pos = NULL, countMultiMappingReads = FALSE, fraction = FALSE, 
-    minMQS = 0, splitOnly = FALSE, nonSplitOnly = FALSE, primaryOnly = FALSE,
-    ignoreDup = FALSE, strandSpecific = 0, juncCounts = FALSE, 
-    genome = NULL, isPairedEnd = FALSE, requireBothEndsMapped = FALSE,
-    checkFragLength = FALSE, minFragLength = 50, maxFragLength = 600, 
-    countChimericFragments = TRUE, autosort = TRUE, nthreads = 1,
-    maxMOp = 10, reportReads = FALSE, subsample_d=1, N_boot=1,
+samExplore(..., subsample_d=1, N_boot=1,
     countboot=c("all","Assigned", "Unassigned_Ambiguity",
     "Unassigned_MultiMapping",   "Unassigned_NoFeatures",
     "Unassigned_Unmapped",       "Unassigned_MappingQuality",
@@ -23,138 +13,8 @@ samExplore(files, annot.inbuilt = "mm10", annot.ext = NULL, isGTFAnnotationFile 
     "Unassigned_Duplicate" ))
 }
 \arguments{
- \item{files}{ a character vector giving names of input files containing 
- read mapping results. The files can be in either SAM format or BAM format. 
- The file format is automatically detected by the function.}
- \item{annot.inbuilt}{ a character string specifying an in-built 
- annotation used for read summarization.
- It has three possible values including \code{mm9}, \code{mm10} and 
- \code{hg19}, corresponding to the NCBI RefSeq annotations for genomes 
- 'mm9', 'mm10' and 'hg19', respectively. 
- \code{mm9} by default. The in-built annotation has a SAF format (see below).}
-  \item{annot.ext}{ A character string giving name of a user-provided 
-    annotation file or a data frame including user-provided annotation data. 
-    If the annotation is in GTF format, it can only be provided as a file. 
-    If it is in SAF format, it can be provided as a file or a data frame. 
-    See below for more details about SAF format annotation. \code{annot.ext} 
-    will override \code{annot.inbuilt} if they are both provided.}
-  \item{isGTFAnnotationFile}{ logical indicating whether the annotation 
-    provided via the \code{annot.ext} argument is in GTF format or not. 
-    \code{FALSE} by default. This option is only applicable when 
-    \code{annot.ext} is not \code{NULL}.}
-  \item{GTF.featureType}{ a character string giving the feature type used 
-    to select rows in the GTF annotation which will be used for read 
-    summarization. \code{exon} by default. This argument is only applicable 
-    when \code{isGTFAnnotationFile} is \code{TRUE}.}
-  \item{GTF.attrType}{ a character string giving the attribute type in the 
-    GTF annotation which will be used to group features (eg. exons) into 
-    meta-features (eg. genes). \code{gene_id} by default. This argument is 
-    only applicable when \code{isGTFAnnotationFile} is \code{TRUE}.}
-  \item{useMetaFeatures}{ logical indicating whether the read summarization 
-    should be performed at the feature level (eg. exons) or meta-feature level
-    (eg genes). If \code{TRUE}, features in the annotation 
-    (each row is a feature) will be grouped into meta-features 
-    using their values in the "GeneID" column in the SAF-format annotation 
-    file or using the "gene_id" attribute in the GTF-format annotation file, 
-    and reads will assiged to the meta-features instead of the features. 
-    See below for more details.}
-  \item{allowMultiOverlap}{ logical indicating if a read is allowed to be 
-    assigned to more than one feature (or meta-feature) if it is found to 
-    overlap with more than one feature (or meta-feature). \code{FALSE} by 
-    default.}
-  \item{isPairedEnd}{ logical indicating if paired-end reads are used. 
-    If \code{TRUE}, fragments (templates or read pairs) will be counted 
-    instead of individual reads. \code{FALSE} by default.}
-  \item{requireBothEndsMapped}{ logical indicating if both ends from 
-    the same fragment are required to be successfully aligned before 
-    the fragment can be assigned to a feature or meta-feature. 
-    This parameter is only appliable when \code{isPairedEnd} is \code{TRUE}.}
-  \item{checkFragLength}{ logical indicating if the two ends from the same 
-    fragment are required to satisify the fragment length criteria before 
-    the fragment can be assigned to a feature or meta-feature. 
-    This parameter is only appliable when \code{isPairedEnd} is \code{TRUE}. 
-    The fragment length criteria are specified via \code{minFragLength} 
-    and \code{maxFragLength}.}
-  \item{minFragLength}{ \code{integer} giving the minimum fragment length 
-    for paired-end reads. \code{50} by default.}
-  \item{maxFragLength}{ \code{integer} giving the maximum fragment length 
-    for paired-end reads. \code{600} by default. \code{minFragLength} and 
-    \code{maxFragLength} are only applicable when \code{isPairedEnd} is 
-    \code{TRUE}. Note that when a fragment spans two or more exons, 
-    the observed fragment length might be much bigger than the nominal 
-    fragment length.}
-  \item{nthreads}{ \code{integer} giving the number of threads used for 
-    running this function. \code{1} by default.}
-  \item{strandSpecific}{ \code{integer} indicating if strand-specific read 
-    counting should be performed. It has three possible values: 
-    \code{0} (unstranded), \code{1} (stranded) and 
-    \code{2} (reversely stranded). \code{0} by default.}
-  \item{minMQS}{ \code{integer} giving the minimum mapping quality score a 
-    read must satisfy in order to be counted. For paired-end reads, at least 
-    one end should satisfy this criteria. \code{0} by default.}
-  \item{readExtension5}{ \code{integer} giving the number of bases extended 
-    upstream from 5' end of each read. \code{0} by default.}
-  \item{readExtension3}{ \code{integer} giving the number of bases extended 
-    downstream from 3' end of each read. \code{0} by default.}
-  \item{read2pos}{ Specifying whether each read should be reduced to its 
-    5' most base or 3' most base. It has three possible values: \code{NULL}, 
-    \code{5} (denoting 5' most base) and \code{3} (denoting 3' most base). 
-    The default value is \code{NULL}. With the default value, the whole read 
-    is used for summarization. When \code{read2pos} is set to \code{5} 
-    (or \code{3}), read summarization will be performed based on the 5' (or 3') 
-    most base position. \code{read2pos} can be used together with 
-    \code{readExtension5} and \code{readExtension3} parameters to set any 
-    desired length for reads.}
-  \item{minOverlap}{ \code{integer}
-  giving the minimum number of overlapped bases
-          required for assigning a read to a feature (or a
-          meta-feature). For assignment of read pairs (fragments),
-          numbers of overlapping bases from each read in the same pair
-          will be summed. If a negative value is provided, the read
-          will be extended from both ends. \code{1} by default.
-  }
-  \item{largestOverlap}{ If \code{TRUE},
-	  a read (or read pair) will be assigned to
-          the feature (or meta-feature) that has the largest number of
-          overlapping bases, if the read (or read pair) overlaps with
-          multiple features (or meta-features).  
-}
-  \item{countMultiMappingReads}{ logical indicating if multi-mapping 
-    reads/fragments should be counted, \code{FALSE} by default. 
-    If \code{TRUE}, a multi-mapping read will be counted up to 
-    N times if it has N reported mapping locations. 
-    This function uses the \code{NH} tag to find multi-mapping reads.}
-  \item{countChimericFragments}{ logical indicating whether a chimeric fragment, 
-   which has its two reads mapped to different chromosomes, should be counted 
-   or not. If this fragment overlaps with only one feature 
-   (or one meta-feature), typically by one of its two read, this fragment will 
-   be assigned to that feature (or meta-feature). 
-   If it is found to overlap more than one feature (or meta-feature), 
-   for example one of its two reads overlaps meta-feature A and the other 
-   overlaps meta-feature B, and \code{allowMultiOverlap} is \code{FALSE}, 
-   then this fragment will not be counted. This parameter is only appliable 
-   when \code{isPairedEnd} is \code{TRUE}.}
-  \item{ignoreDup}{ logical indicating whether reads marked as duplicates 
-   should be ignored. \code{FALSE} by default. 
-   Read duplicates are identified using bit 0x400 in the FLAG field 
-   in SAM/BAM files. The whole fragment (read pair) will be ignored 
-   if paired end.}
-  \item{chrAliases}{ a character string giving the name of a file that 
-   contains aliases of chromosome names. The file should be a comma 
-   delimited text file that includes two columns. 
-   The first column gives the chromosome names used in the annotation 
-   and the second column gives the chromosome names used by reads. 
-   This file should not contain header lines. Names included in 
-   this file are case sensitive.}
-  \item{reportReads}{ logical indicating if read counting result for 
-   each read/fragment is saved to a file. If \code{TRUE}, 
-   read counting results for reads/fragments will be saved to a 
-   tab-delimited file that contains four columns including name of 
-   read/fragment, status(assigned or the reason if not assigned), 
-   name of target feature/meta-feature and number of hits if the read/fragment 
-   is counted multiple times. Name of the file is the same as name of the input 
-   read file except a suffix \code{featureCounts} is added. Multiple files will be 
-   generated if there is more than one input read file.}
+ \item{...}{These are the same arguments of \code{featureCounts} function of \code{Rsubread} package, 
+ for more details check \code{featureCounts} function.}
  \item{subsample_d}{numeric value which describes fraction of reads to be 
   remained in subsampling. }
  \item{N_boot}{integer value for number of resample procedures to be run.}
@@ -172,23 +32,6 @@ then resampling procedure will consider \code{Assigned} reads only for resamplin
 If a user selects any other option it will consider those unmapped reads along with
 \code{Assigned} reads. A user can selects more than one choices and input as a vector 
 }
-\item{fraction}{ 
-logical indicating if fractional counts will be produced for
-multi-mapping reads. If \code{TRUE}, a fractional count, 1/n, will be generated for each reported alignment of a multi-mapping read, where n is the total number of alignments reported for that read. \code{countMultiMappingReads} must be set to \code{TRUE}
-when \code{fraction} is \code{TRUE}.
-}
-\item{splitOnly}{Check featureCounts function of Rsubread package for the desription}
-\item{nonSplitOnly}{Check featureCounts function of Rsubread package for the desription}
-\item{primaryOnly}{Check featureCounts function of Rsubread package for the desription}
-\item{juncCounts}{Check featureCounts function of Rsubread package for the desription}
-\item{genome}{
-\code{NULL} by default, a character string giving the name of a FASTA-format file
-that includes the reference genome sequences. The reference
-genome provided here should be the same as the one used in
-read mapping.
-}
-\item{autosort}{Check featureCounts function of Rsubread package for the desription}
-\item{ maxMOp}{Check featureCounts function of Rsubread package for the desription}
 
   }
 \value{returns a list object.}
@@ -206,24 +49,19 @@ of Rsubread package.
 
 }
 \examples{
-## Not run:
-
 # Simulate a sample with sequencing depth 80% of initial for SAM format 
 # single-end reads using built-in RefSeq annotation for hg19:
 #### Consider all mapped and unmapped reads for resampling##
-inpf <- system.file("testdata", package="samExploreR")
-inpf1 <- paste(inpf,"/","Test1.sam",sep="") 
-inpf2 <- paste(inpf,"/","Test2.sam",sep="")
+inpf1 <- system.file("testdata","Test1.sam", package="samExploreR")
+inpf2 <- system.file("testdata","Test2.sam", package="samExploreR")
 inpf <- c(inpf1, inpf2) 
 res1 <- samExplore(files=inpf,annot.inbuilt="hg19", subsample_d = 0.8)
 
 #### Consider Assigned and Unassigned Unmapped reads for resampling##
 res2 <- samExplore(inpf, N_boot=10, subsample_d=.8,
-countboot=c("Assigned","Unassigned_Unmapped"))
-
+    countboot=c("Assigned","Unassigned_Unmapped"))
 
 #### Consider only Assigned reads for resampling##
 res3 <- samExplore(inpf, N_boot=10, subsample_d=.8,
-countboot="Assigned")
-
+    countboot="Assigned")
 }
