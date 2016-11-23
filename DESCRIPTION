@@ -2,7 +2,7 @@ Package: samExploreR
 Type: Package
 Title: samExploreR package: high-performance read summarisation to count vectors with 
        avaliability of sequencing depth reduction simulation
-Version: 0.99.54
+Version: 0.99.55
 Depends: ggplot2,Rsubread, edgeR,R (>= 3.4.0)
 Author: Alexey Stupnikov, Shailesh Tripathi and Frank Emmert-Streib
 Maintainer: shailesh tripathi <shailesh.tripathy@gmail.com>
@@ -14,7 +14,7 @@ Description: This R package is designed for subsampling procedure
         PGM Proton sequencers. It supports multiple operating systems 
         incluidng Linux, Mac OS X, FreeBSD and Solaris. 
         Was developed with usage of Rsubread.
-Import: grDevices, stats, graphics
+Imports: grDevices, stats, graphics
 License: GPL-3
 LazyLoad: yes
 Suggests: BiocStyle,RUnit,BiocGenerics,Matrix
