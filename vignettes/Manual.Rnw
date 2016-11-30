@@ -153,12 +153,12 @@ As an output the function produces a vector of objects - results of featureCount
 
  # Performing robustness analysis for f = 0.7, number of replicates 5, 
  #annotation entries 'gene', non-paired reads
- x <- samExplore(files=inpf,annot.inbuilt="mm9",GTF.featureType="exon",
+ x <- samExplore(files=inpf,annot.inbuilt="hg19",GTF.featureType="exon",
  GTF.attrType="gene_id", subsample_d = 0.8, N_boot=5)
 
  # Performing robustness analysis for f = 0.1, number of replicates 10, 
  #annotation entries 'exon', paired reads
- x <- samExplore(files=inpf,annot.inbuilt="mm9",GTF.featureType="gene",
+ x <- samExplore(files=inpf,annot.inbuilt="hg19",GTF.featureType="gene",
  GTF.attrType="gene_id", subsample_d = 0.8, N_boot=5)
 @
 
