@@ -20,7 +20,9 @@ and third column provide total counts for the corresponding sequence coverage.
   }
 }
 \details{
- is a dataframe object
+    Example data for plotting output of samExplore function.Dataframe consists three columns, 
+first column contains names of new Genes or exons, second column provides sequence depth 
+and third column provide total counts for the corresponding sequence coverage.
 }
 \value{Example data for plotting results.}
 \examples{

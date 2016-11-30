@@ -37,7 +37,7 @@ plotsamExplorer <- function(dat, save = FALSE, filename = NULL, p.depth = 0.9, f
     pgg <- ggplot(new.df, aes(x = f, y = value, fill = group, color = group)) + geom_boxplot(notch = FALSE, 
         , position = position_dodge(width = 0), outlier.size = 1) + 
         scale_fill_manual(name = "Annotation", values = cols) + scale_color_manual(guide = "none", 
-        values = rep("gray40", lenfactor)) + ylab("") + facet_grid(~fa) + theme(legend.position = c(0.1, 
+        values = rep("gray40", lenfactor)) + ylab("")  + theme(legend.position = c(0.1, 
         0.85)) 
     #+ scale_fill_discrete(name = "Annotation")
     if (!is.null(leg.lab)) {
