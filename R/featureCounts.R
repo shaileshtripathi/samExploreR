@@ -12,7 +12,7 @@ samExplore <- function(..., subsample_d = 1, N_boot = 1, countboot = c("all", "A
     }
     ts <- vector("character", length(fc$targets))
     resultlist <- vector("list", length(fc$targets))
-    for (i in length(fc$targets)) {
+    for (i in 1:length(fc$targets)) {
         fctmp <- list()
         fctmp[["counts"]] <- as.matrix(fc$counts[, i])
         fctmp[["stat"]] <- fc$stat[, c(1, (i + 1))]
@@ -22,7 +22,7 @@ samExplore <- function(..., subsample_d = 1, N_boot = 1, countboot = c("all", "A
             countboot = countboot)
         
         resultlist[[i]] <- restmp[[1]]
-        ts[i] <- c(ts, restmp[[2]])
+        ts[i] <- restmp[[2]]
     }
     names(resultlist) <- fc$targets
     names(ts) <- fc$targets

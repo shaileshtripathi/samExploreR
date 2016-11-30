@@ -52,9 +52,7 @@ of Rsubread package.
 # Simulate a sample with sequencing depth 80% of initial for SAM format 
 # single-end reads using built-in RefSeq annotation for hg19:
 #### Consider all mapped and unmapped reads for resampling##
-inpf1 <- system.file("testdata","Test1.sam", package="samExploreR")
-inpf2 <- system.file("testdata","Test2.sam", package="samExploreR")
-inpf <- c(inpf1, inpf2) 
+inpf <- RNAseqData.HNRNPC.bam.chr14_BAMFILES
 res1 <- samExplore(files=inpf,annot.inbuilt="hg19", subsample_d = 0.8)
 
 #### Consider Assigned and Unassigned Unmapped reads for resampling##

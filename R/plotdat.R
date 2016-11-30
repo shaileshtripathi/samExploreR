@@ -1,10 +1,6 @@
-
-
-
 .gg_color_hue <- function(n) {
     hues = seq(15, 375, length = n + 1)
-    k <- hcl(h = hues, l = 65, c = 100)[1:n]
-    k	
+    hcl(h = hues, l = 65, c = 100)[1:n]
 }
 
 .bracket <- function(x, width, y, height) {
@@ -24,7 +20,6 @@ plotsamExplorer <- function(dat, save = FALSE, filename = NULL, p.depth = 0.9, f
     L <- length(dat$Value)
     grp <- names(table(dat$Label))
     dpth <- as.numeric(names(table(dat$Variable)))
-    
     temp1 <- which((dpth >= p.depth & dpth < 1) == TRUE)
     
     dpth <- dpth[temp1]
@@ -39,11 +34,12 @@ plotsamExplorer <- function(dat, save = FALSE, filename = NULL, p.depth = 0.9, f
     colar <- "coral"
     colar2 <- "seagreen3"
     # xm1 <- 11.5 xm2 <- 14.5
-    pgg <- ggplot(new.df, aes(x = f, y = value, color = group)) + geom_boxplot(notch = TRUE, 
-        notchwidth = 3, position = position_dodge(width = 0), outlier.size = 1) + 
+    pgg <- ggplot(new.df, aes(x = f, y = value, fill = group, color = group)) + geom_boxplot(notch = FALSE, 
+        , position = position_dodge(width = 0), outlier.size = 1) + 
         scale_fill_manual(name = "Annotation", values = cols) + scale_color_manual(guide = "none", 
         values = rep("gray40", lenfactor)) + ylab("") + facet_grid(~fa) + theme(legend.position = c(0.1, 
-        0.85)) + scale_fill_discrete(name = "Annotation")
+        0.85)) 
+    #+ scale_fill_discrete(name = "Annotation")
     if (!is.null(leg.lab)) {
         pgg <- pgg + scale_fill_discrete(name = "Annotation", labels = leg.lab)
     }
@@ -104,10 +100,8 @@ plotsamExplorer <- function(dat, save = FALSE, filename = NULL, p.depth = 0.9, f
             fn <- paste("plot", runif(1, min = 1000, max = 5000), ".pdf", sep = "")
             fn <- paste(getwd(), "/", fn, sep = "")
         }
-        print(fn)
+        message(fn)
         ggsave(filename = fn, plot = pgg)
-        cat(paste("\n file is saved as", fn, "\n \n"))
+        message(paste("\n file is saved as", fn, "\n \n"))
     }
-    invisible(pgg)
 }
-

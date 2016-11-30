@@ -29,7 +29,6 @@ BiocStyle::latex()
 \usepackage{tikz}
 \definecolor{verboxcolor}{RGB}{235,235,235}
 \usepackage{tikz}
-\usepackage{verbatim}
 
 
 \begin{document}
@@ -96,9 +95,7 @@ If a user wants to make changes to the package and rebuild it again, then the fo
 The samExploreR package is available from Bioconductor.
 To install the package, run the following commands:
 
-\begin{verbatim}
 Remark: To be added after uploaded to Bioconductor.
-\end{verbatim}
 
 If you install it from a local download, run the following command in a terminal from the same directory where you downloaded the package:
 %\Rcode{R CMD INSTALL samExploreR_1.0.0.tar.gz}
@@ -118,7 +115,7 @@ In order to simulate $5$ repeats (N\_boot) for a virtual sequencing experiment w
   library(samExploreR)
 
  ## perform subsampling
-inpf <- system.file("testdata", "Test1.sam", package="samExploreR")
+inpf <- RNAseqData.HNRNPC.bam.chr14_BAMFILES
 
 x <- samExplore(files=inpf,annot.inbuilt="hg19", subsample_d = 0.8)
 @ 
@@ -152,7 +149,7 @@ As an output the function produces a vector of objects - results of featureCount
 
  # Performing subsampling
 
- inpf <- system.file("testdata", "Test1.sam", package="samExploreR")
+ inpf <- RNAseqData.HNRNPC.bam.chr14_BAMFILES
 
  # Performing robustness analysis for f = 0.7, number of replicates 5, 
  #annotation entries 'gene', non-paired reads
@@ -167,7 +164,7 @@ As an output the function produces a vector of objects - results of featureCount
 
 \section{exploreRob}
 
-A cornerstone of any scientific study is the question regarding the reproducibility and robustness of obtained results. The function $exploreRob$ allows the exploration of the robustness of results. It runs a standard one-way ANOVA test for groups of replicates, corresponding to different $f$ values, for one fixed annotation. In this way, one can measure if the result of the analysis changes significantly with a change in the parameter sequencing depth, \Rcode{f}.
+A cornerstone of any scientific study is the question regarding the reproducibility and robustness of obtained results. The function \Rcode{exploreRob} allows the exploration of the robustness of results. It runs a standard one-way ANOVA test for groups of replicates, corresponding to different $f$ values, for one fixed annotation. In this way, one can measure if the result of the analysis changes significantly with a change in the parameter sequencing depth, \Rcode{f}.
 
 The function \Rcode{exploreRob} takes as input argument a data frame with the format shown in Table below. \ref{tab:expRob}.
 <<>>=
@@ -197,7 +194,7 @@ exploreRob(df_sole, lbl = 'New, Gene', f_vect = c(0.85, 0.9, 0.95))
 
 \section{exploreRep}
 
-Similar to \Rcode{exploreRob}, the function $exploreRep$ allows the exploration of the reproducibility of results. This function runs a one-way ANOVA test for groups of replicates, corresponding to one \Rcode{f} value, across various annotation types. Thus, the influence of the annotation or the summarisation method can be explored. 
+Similar to \Rcode{exploreRob}, the function \Rcode{exploreRep} allows the exploration of the reproducibility of results. This function runs a one-way ANOVA test for groups of replicates, corresponding to one \Rcode{f} value, across various annotation types. Thus, the influence of the annotation or the summarisation method can be explored. 
 
 \Rcode{exploreRep} takes as input a data frame of form shown in Tab. \ref{tab:expRep}.
 \begin{table}[h!]
