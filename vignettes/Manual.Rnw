@@ -264,7 +264,7 @@ head(df_sole)
 ### Generation of the plot:
 require(samExploreR)
 data("df_sole")
-plotsamExplorer(df_sole,p.depth=.9,font.size=4, anova=TRUE)
+plotsamExplorer(df_sole,p.depth=.9,font.size=4, anova=TRUE,save=FALSE)
 @
 \caption{\label{fig1} Boxplot of the number of differentially expressed 
 genes for different sequence-depths \Rcode{f}.  }
@@ -281,7 +281,7 @@ genes for different sequence-depths \Rcode{f}.  }
 ###Generation of the plot:
 require(samExploreR)
 data("df_intersect")
-plotsamExplorer(df_intersect,font.size=3, anova=FALSE)
+plotsamExplorer(df_intersect,font.size=3, anova=FALSE,save=FALSE)
 @
 \caption{\label{fig2} Boxplot of the number of differentially expressed genes
  for different sequence-depths \Rcode{f}.  }

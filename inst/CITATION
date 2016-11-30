@@ -1,6 +1,6 @@
 citHeader("Please cite samExploreR as below:")
 
-citeEntry(entry="Article",
+citEntry(entry="Article",
     title = "samExploreR: exploring reproducibility and robustness of RNA-seq results based on SAM files",
     author = "Stupnikov, Alexey and Tripathi, Shailesh and Ricardo de Matos Simoes and McArt, Darragh and Salto-Tellez, Manuel and Glazko, Galina and Dehmer, Matthias and Emmert-Streib, Frank",
     journal = "Bioinformatics",

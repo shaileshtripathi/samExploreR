@@ -34,11 +34,12 @@ plotsamExplorer <- function(dat, save = FALSE, filename = NULL, p.depth = 0.9, f
     colar <- "coral"
     colar2 <- "seagreen3"
     # xm1 <- 11.5 xm2 <- 14.5
-    pgg <- ggplot(new.df, aes(x = f, y = value, fill = group, color = group)) + geom_boxplot(notch = FALSE, 
-        , position = position_dodge(width = 0), outlier.size = 1) + 
+    pgg <- ggplot(new.df, aes(x = f, y = value, fill = group, color = group)) + 
+	geom_boxplot(notch = FALSE, , position = position_dodge(width = 0), outlier.size = 1) + 
         scale_fill_manual(name = "Annotation", values = cols) + scale_color_manual(guide = "none", 
         values = rep("gray40", lenfactor)) + ylab("")  + theme(legend.position = c(0.1, 
-        0.85)) + scale_fill_discrete(name = "Annotation")
+        0.85)) 
+    #+ scale_fill_discrete(name = "Annotation")
     if (!is.null(leg.lab)) {
         pgg <- pgg + scale_fill_discrete(name = "Annotation", labels = leg.lab)
     }
