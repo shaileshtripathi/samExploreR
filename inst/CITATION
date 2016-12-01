@@ -8,7 +8,7 @@ citEntry(entry="Article",
     issue = "1460-2059",
     pages = "3345-3347",
     journal = "Oxford University Press",
-    volume = 32
+    volume = 32,
 
     textVersion = "Alexey Stupnikov, Shailesh Tripathi, Ricardo de Matos Simoes, Darragh McArt, Manuel Salto-Tellez, Galina Glazko, Matthias Dehmer, and Frank Emmert-Streib
 samExploreR: exploring reproducibility and robustness of RNA-seq results based on SAM files
