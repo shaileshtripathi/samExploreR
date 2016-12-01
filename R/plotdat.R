@@ -104,4 +104,5 @@ plotsamExplorer <- function(dat, save = FALSE, filename = NULL, p.depth = 0.9, f
         ggsave(filename = fn, plot = pgg)
         message(paste("\n file is saved as", fn, "\n \n"))
     }
+  invisible(pgg)
 }
