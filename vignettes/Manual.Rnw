@@ -264,7 +264,7 @@ head(df_sole)
 ### Generation of the plot:
 require(samExploreR)
 data("df_sole")
-plotsamExplorer(df_sole,p.depth=.9,font.size=4, anova=TRUE,save=FALSE)
+plotsamExplorer(df_sole,p.depth=.9,font.size=4, anova=FALSE,save=FALSE)
 @
 \caption{\label{fig1} Boxplot of the number of differentially expressed 
 genes for different sequence-depths \Rcode{f}.  }
