@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[dvips]{graphicx}
+\usepackage{makeidx}  % allows for indexgeneration
 \usepackage{dsfont}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
