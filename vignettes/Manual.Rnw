@@ -5,6 +5,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{Sweave}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{psfrag}
 %################
 <<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
 BiocStyle::latex()
