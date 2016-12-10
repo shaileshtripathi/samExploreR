@@ -15,6 +15,10 @@ BiocStyle::latex()
 \usepackage[english]{babel}
 \definecolor{verboxcolor}{RGB}{235,235,235}
 
+\usepackage{eufrak}
+\usepackage{bbm}
+\usepackage{marvosym}
+\usepackage{txfonts}
 
 \begin{document}
 <<preliminaries,echo=FALSE,results=hide>>=
