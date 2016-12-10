@@ -1,57 +1,24 @@
-%\documentclass[11pt]{article}
-%\usepackage[dvips]{graphicx}
-%\usepackage{makeidx}  % allows for indexgeneration
-%\usepackage{dsfont}
-%\usepackage[utf8]{inputenc}
-%\usepackage{amsmath}
-%\usepackage{Sweave}
-%\usepackage{pgf}
-%\usepackage{tikz}
-%\usepackage{psfrag}
-%################
-%<<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
-%BiocStyle::latex()
-%@
-%\usepackage[english]{babel}
-%\definecolor{verboxcolor}{RGB}{235,235,235}
-
-%\usepackage{eufrak}
-%\usepackage{bbm}
-%\usepackage{marvosym}
-%\usepackage{txfonts}
+%\VignetteIndexEntry{samExploreR Vignette}
+%\VignetteDepends{}
+%\VignetteKeywords{random mapping}
+%\VignettePackage{samExploreR}
 
 \documentclass[11pt]{article}
-\usepackage{makeidx}  % allows for indexgeneration
 \usepackage[dvips]{graphicx}
+\usepackage{makeidx}  % allows for indexgeneration
 \usepackage{dsfont}
-
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-%\usepackage{bbb}
 \usepackage{Sweave}
-%################
+\usepackage{psfrag}
+################
 <<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
 BiocStyle::latex()
 @
-
-\usepackage{epsfig}
-\usepackage{color}
-\usepackage{psfrag}
-
 \usepackage[english]{babel}
-\usepackage{rotating}
-\usepackage{rotate}
-\usepackage{lscape}
-%\usepackage{stmaryrd}
-\usepackage{eufrak}
-\usepackage{bbm}
-\usepackage{marvosym}
-\usepackage{txfonts}
-\usepackage{pgf}
-\usepackage{tikz}
 \definecolor{verboxcolor}{RGB}{235,235,235}
-\usepackage{tikz}
-\usepackage{verbatim}
+
+
 
 \begin{document}
 <<preliminaries,echo=FALSE,results=hide>>=
