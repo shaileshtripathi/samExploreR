@@ -55,7 +55,7 @@ plotsamExplorer <- function(dat, save = FALSE, filename = NULL, p.depth = 0.9, f
     if (anova) {
         pv <- c()
         crd <- c()
-        for (i in 1:length(grp)) {
+        for (i in seq_along(grp)) {
             p <- summary(exploreRob(dat, grp[i], dpth))
             pv <- c(pv, round(p[[1]][["Pr(>F)"]][1], digits = 7))
             a <- which(dat$Label == grp[i])
@@ -65,15 +65,15 @@ plotsamExplorer <- function(dat, save = FALSE, filename = NULL, p.depth = 0.9, f
         }
         
         cnt = 0
-        for (i in 1:lenfactor) {
+        for (i in seq_len(lenfactor)) {
             pgg <- pgg + addlines(length(table(dat$Variable)) - 3 + crd[i, 1], crd[i, 
-                2] + 5, cols[i], lab = paste("p-value", pv[i]), font.size)
+                2] + 5, cols[i], lab = paste0("p-value", pv[i]), font.size)
             cnt = cnt - 50
         }
         # print(dpth)
-        for (i in 1:lenfactor) {
+        for (i in seq_len(lenfactor)) {
             tt <- which(dat$Label == nmfactor[i])
-            # print(tt) for(j in 1:length(dpth)){
+            # print(tt) for(j in seq_along(dpth)){
             tt1 <- which(dat[tt, ]$Variable >= dpth[1])
             ymn <- min(dat[tt, ]$Value[tt1])
             # print(ymn)
@@ -95,14 +95,13 @@ plotsamExplorer <- function(dat, save = FALSE, filename = NULL, p.depth = 0.9, f
     if (save) {
         fn <- NULL
         if (!is.null(filename)) {
-            fn <- paste(getwd(), "/", filename, ".pdf", sep = "")
+            fn <- paste0(getwd(), "/", filename, ".pdf", sep = "")
         } else {
-            fn <- paste("plot", runif(1, min = 1000, max = 5000), ".pdf", sep = "")
-            fn <- paste(getwd(), "/", fn, sep = "")
+            fn <- paste0("plot", runif(1, min = 1000, max = 5000), ".pdf", sep = "")
+            fn <- paste0(getwd(), "/", fn, sep = "")
         }
-        message(fn)
         ggsave(filename = fn, plot = pgg)
-        message(paste("\n file is saved as", fn, "\n \n"))
+        message("file is saved as: ", fn)
     }
   invisible(pgg)
 }

@@ -12,12 +12,12 @@ samExplore <- function(..., subsample_d = 1, N_boot = 1, countboot = c("all", "A
     }
     ts <- vector("character", length(fc$targets))
     resultlist <- vector("list", length(fc$targets))
-    for (i in 1:length(fc$targets)) {
+    for (i in seq_along(fc$targets)) {
         fctmp <- list()
         fctmp[["counts"]] <- as.matrix(fc$counts[, i])
         fctmp[["stat"]] <- fc$stat[, c(1, (i + 1))]
-        message(paste("Sub sampling: ",fc$targets[i],"\n", sep=""))
-        message(paste("Sub sample N: ", i, "\n", sep = ""))
+        message("Sub sampling: ",fc$targets[i])
+        message("Sub sample N: ", i)
         restmp <- .featureCountsBoot(fctmp, subsample_d = subsample_d, N_boot = N_boot, 
             countboot = countboot)
         
@@ -50,7 +50,7 @@ samExplore <- function(..., subsample_d = 1, N_boot = 1, countboot = c("all", "A
     }
     bootmat <- c()
     
-    for (i in 1:N_boot) {
+    for (i in seq_len(N_boot)) {
         tmp <- thinCounts(seq, target.size = ts)
         bootmat <- cbind(bootmat, tmp[rownames(flcount$counts), ])
     }
@@ -58,6 +58,6 @@ samExplore <- function(..., subsample_d = 1, N_boot = 1, countboot = c("all", "A
     
 }
 .printParam <- function(depth = 1, boot = 1) {
-    message(paste("Simulated Depth: ", depth * 100, "%", "\n", sep = ""))
-    message(paste(" Number of sub samples: ", boot, "\n", sep = ""))
+    message("Simulated Depth: ", depth * 100, "%")
+    message("Number of sub samples: ", boot)
 }
