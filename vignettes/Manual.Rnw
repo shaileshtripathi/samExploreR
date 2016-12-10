@@ -11,7 +11,6 @@
 \usepackage{amsmath}
 \usepackage{Sweave}
 \usepackage{psfrag}
-################
 <<style-Sweave, eval=TRUE, echo=FALSE, results=tex>>=
 BiocStyle::latex()
 @
